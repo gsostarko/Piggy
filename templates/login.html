@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+</br>
+<h1 class="heading">Prijava</h1>
+			<center>
+            	<div class="kartica">
+					<img class="logo-large" src="static/img/pig.png" alt="Pig logo">
+					<input class="input-fields" type="text" placeholder="korisničko ime">
+				</br>
+					<input class="input-fields" type="password" placeholder="lozinka">
+					</br>
+					</br>
+
+					<a href="#" class="btn">Prijava</a>
+                </br>
+                <div><p class="tekst-paraf">Nemaš račun?</p>
+                <a href="{{url_for('registracija')}}" class="btn">Registriraj se</a>
+            </br>
+        </div>
+                
+            
+				</div>
+			</center>
+{% endblock %}

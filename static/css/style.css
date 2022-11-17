@@ -1,0 +1,52 @@
+* {
+  font-family: "Roboto", sans-serif;
+}
+.input-fields {
+  width: 100%;
+  border: 2px solid #aaa;
+  border-radius: 0px;
+  margin: 8px;
+  outline: none;
+  padding: 8px;
+  box-sizing: border-box;
+  transition: 0.3s;
+}
+
+.input-fields:focus {
+  border-color: #008000;
+  box-shadow: 0 0 8px 0 #008000;
+}
+.kartica {
+  text-align: center;
+  width: 50%;
+  margin: 8px;
+  outline: none;
+  padding: 8px;
+  box-sizing: border-box;
+  transition: 0.3s;
+}
+
+.heading {
+  text-align: center;
+}
+
+.logo-large {
+  width: 100%;
+  padding: 20px;
+}
+
+.button,
+.button:link,
+.bbutton:visited {
+  display: inline-block;
+  background-color: #008000;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0.6rem 1.6rem;
+  border-radius: 3px;
+}
+
+.tekst-paraf {
+  padding: 20px;
+}

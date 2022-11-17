@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% block content %} 
+</br>
+<h1 class="heading">Novi recept</h1>
+			<center>
+            
+				<div class="kartica">
+                    <div><img class="logo-large" src="/static/img/pepper.png" alt="Začini"></div>
+					
+                <p>Unesite količine sastojaka u postotku (%) u odgovarajuća polja te spremite novi recept kako bi ga mogli koristiti u budućnosti.</p>
+				
+				
+				<form method="POST">
+				{{ forma_recepti.hidden_tag()}}
+
+				{{forma_recepti.naziv_recepta(class="input-fields")}}
+
+				{{forma_recepti.sol(class="input-fields")}}
+
+				</br>
+                {{forma_recepti.papar(class="input-fields")}}
+					</br>
+                    {{forma_recepti.slatka_paprika(class="input-fields")}}
+                    {{forma_recepti.ljuta_paprika(class="input-fields")}}
+					</br>
+                    {{forma_recepti.bijeli_luk(class="input-fields")}}
+					
+					</br>
+					</br>
+
+					{{forma_recepti.spremi_recept(class="button")}}
+				</form>
+				
+				</div>
+			</center>
+
+{% endblock %}

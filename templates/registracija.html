@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+</br>
+<h1 class="heading">Registracija novog korisnika</h1>
+
+<center>
+            	<div class="kartica">
+					<img class="logo-large" src="static/img/register.png" alt="Pig logo">
+                    {{form.username(class="input-fields")}}
+					
+				</br>
+                    {{form.password(class="input-fields")}}
+                </br>
+                    {{form.password_confirm(class="input-fields")}}
+				</br>
+				</br>
+                    {{form.register()(class="button")}}
+
+                </br>
+                
+        </div>
+                
+            
+				</div>
+			</center>
+{% endblock %}
