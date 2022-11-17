@@ -1,14 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+{% for message in get_flashed_messages() %}
+
+</br>
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+		<center>
+			<div>
+			<img class="message-img" src="/static/img/check.png" alt="Check mark">
+			{{message}}
+			</div>
+		</center>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+
+	
+	  
+
+{%endfor%}
 </br>
 <h1 class="heading">Registracija novog korisnika</h1>
 
 <center>
             	<div class="kartica">
 					<img class="logo-large" src="static/img/register.png" alt="Novi korisnik">
-                    <form method="POST" action="/"> 
-                    {{form.hidden_tag}}
+                    <form method="POST"> 
+                    {{form.hidden_tag()}}
                     {{form.username(class="input-fields")}}
 
                     {{form.email(class="input-fields")}}
@@ -28,4 +46,7 @@
             
 				</div>
 			</center>
+
+
+            
 {% endblock %}

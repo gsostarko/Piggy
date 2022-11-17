@@ -1,4 +1,4 @@
-from flask import Flask, render_template, flash
+from flask import Flask, render_template, flash, redirect, request
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FloatField, PasswordField, BooleanField, ValidationError
 
@@ -11,8 +11,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import pymongo
 import datetime 
 
-client = pymongo.MongoClient("mongodb+srv://gsostarko:mmsw.32E@cluster0.adehxey.mongodb.net/?retryWrites=true&w=majority")
-
+#client = pymongo.MongoClient("mongodb+srv://gsostarko:mmsw.32E@cluster0.adehxey.mongodb.net/?retryWrites=true&w=majority")
+client = pymongo.MongoClient("mongodb://mongo:wvVg7SpdTrlt4RC1Z844@containers-us-west-117.railway.app:6622")
 
 db = client['kolinje']
 
@@ -48,13 +48,13 @@ def user_registration(username, email, password):
     document = {
         'username': username,
         'email': email,
-        'password': password
-        
+        'password': password,
+        'datum_registracije': datetime.datetime.now()
     }
 
     return korisnici.insert_one(document)
 
-#add_recepie(naziv_recepta, sol, papar, bijeli_luk, ljuta_paprika, slatka_paprika)
+
 
 
 class RegistrationForm(FlaskForm):
@@ -78,6 +78,7 @@ class ReceptiForm(FlaskForm):
 # Create a rout decorator
 @app.route('/')
 def index():
+    
     return render_template('index.html')
 
 @app.route('/login')
@@ -104,6 +105,7 @@ def recepti():
         add_recepie(naziv_recepta, sol, papar, bijeli_luk, ljuta_paprika, slatka_paprika)
         flash("Recept je uspješno pohranjen!")
         
+        return redirect('recepti')
 
 
         
@@ -113,21 +115,44 @@ def recepti():
 @app.route('/registracija', methods=['GET', 'POST'])
 def registracija():
     username = None
+    email = None
     password = None
     password_confirm = None
     form = RegistrationForm()
     
     if form.validate_on_submit():
-        username = form.name.data
-        form.username.data=''
+        username = form.username.data
+        email=form.email.data
+        password = form.password.data
+        password_confirm = form.password_confirm.data
 
-        print(form.username.data)
+        print(password, password_confirm)
+
+        # if password != password_confirm :
+        #     flash("error: nisu identične lozinke")
+
+        # if password == password_confirm :
+        #     user_registration(username, email, password)
+        #     print("test")
+            
+        #     return redirect('registracija')
+        
+     
+            
+        
+        
     return render_template('registracija.html', username=username, password=password, password_confirm=password_confirm, form=form)
 
+@app.route('/update/<id>', methods=['GET', 'POST'])
+def update(id):
+    form = RegistrationForm()
+    username_to_update = None
+    print(id)
     
 #Create a form class
 
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80)
+    #app.run(host='0.0.0.0', port=0)
+    app.run()
