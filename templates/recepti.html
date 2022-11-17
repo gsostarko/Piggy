@@ -1,5 +1,24 @@
 {% extends "base.html" %} {% block content %} 
+{% for message in get_flashed_messages() %}
+
+	
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+		<center>
+			<div>
+			<img class="message-img" src="/static/img/check.png" alt="Check mark">
+			{{message}}
+			</div>
+		</center>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+
+	
+	  
+
+{%endfor%}
 </br>
+
+
 <h1 class="heading">Novi recept</h1>
 			<center>
             
@@ -8,6 +27,7 @@
 					
                 <p>Unesite količine sastojaka u postotku (%) u odgovarajuća polja te spremite novi recept kako bi ga mogli koristiti u budućnosti.</p>
 				
+					
 				
 				<form method="POST">
 				{{ forma_recepti.hidden_tag()}}

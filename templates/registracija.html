@@ -6,8 +6,12 @@
 
 <center>
             	<div class="kartica">
-					<img class="logo-large" src="static/img/register.png" alt="Pig logo">
+					<img class="logo-large" src="static/img/register.png" alt="Novi korisnik">
+                    <form method="POST" action="/"> 
+                    {{form.hidden_tag}}
                     {{form.username(class="input-fields")}}
+
+                    {{form.email(class="input-fields")}}
 					
 				</br>
                     {{form.password(class="input-fields")}}
@@ -15,10 +19,10 @@
                     {{form.password_confirm(class="input-fields")}}
 				</br>
 				</br>
-                    {{form.register()(class="button")}}
+                    {{form.register(class="button")}}
 
                 </br>
-                
+            </form>
         </div>
                 
             

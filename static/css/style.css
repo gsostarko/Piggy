@@ -35,6 +35,10 @@
   padding: 20px;
 }
 
+.message-img {
+  width: 20px;
+}
+
 .button,
 .button:link,
 .bbutton:visited {
