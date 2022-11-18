@@ -21,6 +21,9 @@ recepture = db['recepture']
 korisnici = db['korisnici']
 termin_kolinja = db['termin_kolinja']
 
+
+
+
 #Create a flask instance
 app = Flask(__name__)
 
@@ -105,12 +108,26 @@ def recepti():
         add_recepie(naziv_recepta, sol, papar, bijeli_luk, ljuta_paprika, slatka_paprika)
         flash("Recept je uspješno pohranjen!")
         
-        return redirect('recepti')
-
-
         
+        
+        return redirect('popis_recepata')
    
-    return render_template('recepti.html', naziv_recepta=naziv_recepta, sol=sol,papar=papar, ljuta_paprika=ljuta_paprika, slatka_paprika=slatka_paprika, forma_recepti=forma_recepti)
+    return render_template('recepti.html', naziv_recepta=naziv_recepta, sol=sol,papar=papar, ljuta_paprika=ljuta_paprika, slatka_paprika=slatka_paprika, forma_recepti=forma_recepti,)
+
+@app.route('/popis_recepata',methods=['GET', 'POST'])
+def popis_recepata():
+    db = client.get_database('kolinje')
+    collection = db.get_collection('recepture')
+    filter = {}
+
+    podaci = collection.find(filter)
+    recepti_temp = []
+    for each_doc in podaci:
+         recepti_temp.append(each_doc)
+         print(recepti_temp)
+    #print(recepti_temp)
+
+    return render_template('popis_recepata.html', recepti_temp=recepti_temp)
 
 @app.route('/registracija', methods=['GET', 'POST'])
 def registracija():
@@ -120,6 +137,16 @@ def registracija():
     password_confirm = None
     form = RegistrationForm()
     
+    db = client.get_database('kolinje')
+    collection = db.get_collection('korisnici')
+    filter = {}
+
+    podaci = collection.find(filter)
+    korisnici_temp = []
+    for each_doc in podaci:
+        korisnici_temp.append(each_doc)
+    #print(korisnici_temp)
+
     if form.validate_on_submit():
         username = form.username.data
         email=form.email.data
@@ -128,20 +155,21 @@ def registracija():
 
         print(password, password_confirm)
 
-        # if password != password_confirm :
-        #     flash("error: nisu identične lozinke")
-
-        # if password == password_confirm :
-        #     user_registration(username, email, password)
-        #     print("test")
-            
-        #     return redirect('registracija')
         
+
+        if password == password_confirm :
+            user_registration(username, email, password)
+            print("test")
+            
+            return redirect('registracija')
+
+        else:
+            flash("error: nisu identične lozinke")
      
             
         
         
-    return render_template('registracija.html', username=username, password=password, password_confirm=password_confirm, form=form)
+    return render_template('registracija.html', username=username, password=password, password_confirm=password_confirm, form=form, korisnici_temp = korisnici_temp)
 
 @app.route('/update/<id>', methods=['GET', 'POST'])
 def update(id):

@@ -20,9 +20,11 @@
 
 {%endfor%}
 </br>
+<center>
+<div class="shadow p-3 mb-5 bg-body rounded">
 <h1 class="heading">Registracija novog korisnika</h1>
 
-<center>
+
             	<div class="kartica">
 					<img class="logo-large" src="static/img/register.png" alt="Novi korisnik">
                     <form method="POST"> 
@@ -45,8 +47,33 @@
                 
             
 				</div>
-			</center>
-
-
-            
+			</div>
+			
+		
+			   
+			<div class="shadow p-3 mb-5 bg-body rounded">
+				<div style="overflow-x:auto;">
+			<table class="table">
+				<thead>
+					<tr>
+					<th scope="col">id</th>
+					<th scope="col">Korisničko ime</th>
+					<th scope="col">Email</th>
+					<th scope="col">Datum registracije</th>
+				</tr>
+				</thead>
+{%for korisnici in korisnici_temp%}
+<tbody>
+<tr>
+<td>{{korisnici['_id']}} </td>
+<td> {{korisnici['username']}}   </td>
+<td> {{korisnici['email']}}  </td> 
+<td> {{korisnici['datum_registracije']}} </td>
+	</tr>
+</tbody>
+{%endfor%}
+</table>
+</div>
+</div>
+</center>
 {% endblock %}

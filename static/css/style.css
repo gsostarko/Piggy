@@ -39,6 +39,10 @@
   width: 20px;
 }
 
+.shadow {
+  width: 60%;
+}
+
 .button,
 .button:link,
 .bbutton:visited {
