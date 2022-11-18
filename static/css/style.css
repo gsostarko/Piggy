@@ -39,6 +39,10 @@
   width: 20px;
 }
 
+.button-img {
+  width: 30px;
+}
+
 .shadow {
   width: 60%;
 }
@@ -53,6 +57,20 @@
   font-size: 1rem;
   padding: 0.6rem 1.6rem;
   border-radius: 3px;
+}
+
+.button-filter {
+  display: inline-block;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  font-size: 2rem;
+  padding: 0.6rem 1.6rem;
+  border: none;
+}
+
+.oddo {
+  width: 20%;
 }
 
 .tekst-paraf {

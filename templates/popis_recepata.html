@@ -1,4 +1,58 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+
+
+{% block content %}
+
+
+<!-- Button trigger modal -->
+<button type="button" class="button-filter" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  <img class="button-img" src="/static/img/filter.png" alt="Check mark"> Filter
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Filter recepata</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Filtriraj recepte prema:</strong></p>
+        <p>Naslovu recepta:</p>
+        <input class="input-fields">
+        <p>Udjelu soli (%)</p>
+        <div style="display: inline-block;">
+          <input class="input-fields oddo"> do <input class="input-fields oddo">
+        </div>
+        <p>Udjelu papra (%)</p>
+        <div style="display: inline-block;">
+          <input class="input-fields oddo"> do <input class="input-fields oddo">
+        </div>
+        <p>Udjelu slatke paprike (%)</p>
+        <div style="display: inline-block;">
+          <input class="input-fields oddo"> do <input class="input-fields oddo">
+        </div>
+        <p>Udjelu ljute paprike (%)</p>
+        <div style="display: inline-block;">
+          <input class="input-fields oddo"> do <input class="input-fields oddo">
+        </div>
+        <p>Udjelu bijelog luka (%)</p>
+        <div style="display: inline-block;">
+          <input class="input-fields oddo"> do <input class="input-fields oddo">
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 </br>
 <center>
   <div class="shadow p-3 mb-5 bg-body rounded">
