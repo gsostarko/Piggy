@@ -1,0 +1,35 @@
+{% extends "base.html" %} {% block content %}
+</br>
+<center>
+  <div class="shadow p-3 mb-5 bg-body rounded">
+    <div style="overflow-x:auto;">
+    <table class="table">
+      <thead>
+        <tr>
+          
+          <th scope="col">Naziv recepta</th>
+          <th scope="col">Sol (%)</th>
+          <th scope="col">Papar (%)</th>
+          <th scope="col">Ljuta paprika (%)</th>
+          <th scope="col">Slatka paprika (%)</th>
+          <th scope="col">Bijeli luk (%)</th>
+        </tr>
+      </thead>
+      {%for recepti in recepti_temp%}
+      <tbody>
+        <tr>
+          
+          <td>{{recepti['Naslov_recepta']}}</td>
+          <td>{{recepti['Sol']}}</td>
+          <td>{{recepti['Papar']}}</td>
+          <td>{{recepti['Ljuta_paprika']}}</td>
+          <td>{{recepti['Slatka_paprika']}}</td>
+          <td>{{recepti['Bijeli_luk']}}</td>
+        </tr>
+      </tbody>
+      {%endfor%}
+    </table>
+</div>
+  </div>
+</center>
+{% endblock %}
