@@ -1,20 +1,101 @@
 {% extends "base.html" %} {% block content %}
 <h1>Novo mjerenje</h1>
+{{forma_izracun.hidden_tag()}}
 
-<div class="card-razmak">
-  <div class="card">
-    <div class="card-header">
-      <strong>Odabrani recept: </strong>{{naslov_recepta}}
+<div class="accordion" id="accordionPanelsStayOpenExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+      <button
+        class="accordion-button"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#panelsStayOpen-collapseOne"
+        aria-expanded="true"
+        aria-controls="panelsStayOpen-collapseOne"
+      >
+        <strong>Korak 1: Odabrani recept: </strong> {{ naslov_recepta}}
+      </button>
+    </h2>
+    <div
+      id="panelsStayOpen-collapseOne"
+      class="accordion-collapse collapse show"
+      aria-labelledby="panelsStayOpen-headingOne"
+    >
+      <div class="accordion-body">
+        <p><strong>Sastojci</strong></p>
+        <p>id: {{id}}</p>
+        <p>Sol: {{sol}} %</p>
+        <p>Papar: {{papar}} %</p>
+        <p>Ljuta paprika: {{ljuta_paprika}} %</p>
+        <p>Slatka paprika: {{slatka_paprika}} %</p>
+        <p>Bijeli luk: {{bijeli_luk}} %</p>
+      </div>
     </div>
-    <div class="card-body">
-      <p class="card-text"><strong>Sastojci</strong></p>
-      <p class="card-text">id: {{id}}</p>
-      <p class="card-text">Sol: {{sol}} %</p>
-      <p class="card-text">Papar: {{papar}} %</p>
-      <p class="card-text">Ljuta paprika: {{ljuta_paprika}} %</p>
-      <p class="card-text">Slatka paprika: {{slatka_paprika}} %</p>
-      <p class="card-text">Bijeli luk: {{bijeli_luk}} %</p>
-      <form method="POST"></form>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+      <button
+        class="accordion-button collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#panelsStayOpen-collapseTwo"
+        aria-expanded="false"
+        aria-controls="panelsStayOpen-collapseTwo"
+      >
+        <strong>Korak 2: Unos naziva kolinja </strong>
+      </button>
+    </h2>
+    <div
+      id="panelsStayOpen-collapseTwo"
+      class="accordion-collapse collapse"
+      aria-labelledby="panelsStayOpen-headingTwo"
+    >
+      <div class="accordion-body">
+        
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+      <button
+        class="accordion-button collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#panelsStayOpen-collapseThree"
+        aria-expanded="false"
+        aria-controls="panelsStayOpen-collapseThree"
+      >
+        <strong>Korak 3: Unos količine mesa i izračun sastojaka </strong>
+      </button>
+    </h2>
+    <div
+      id="panelsStayOpen-collapseThree"
+      class="accordion-collapse collapse"
+      aria-labelledby="panelsStayOpen-headingThree"
+    >
+    <form method="POST">
+      <div class="accordion-body">
+        {{forma_izracun.hidden_tag()}}
+        {{forma_izracun.kolicina_mesa(class="input-fields")}} g
+      </br>
+      {{forma_izracun.izracunaj(class="button")}}  
+        
+        
+        
+</br>
+        Sol = {{preracunata_sol}} g
+      </br>
+        Papar = {{preracunati_papar}} g
+      </br>
+        Ljuta paprika = {{preracunata_lj_paprika}} g
+      </br>
+        Slatka paprika = {{preracunata_s_paprika}} g
+      </br>
+        Bijeli luk = {{preracunat_luk}} g 
+      </br>
+      <strong>Smjesa (ukupno):</strong> {{uk_smjese}} g
+      </form>
+      </div>
     </div>
   </div>
 </div>
