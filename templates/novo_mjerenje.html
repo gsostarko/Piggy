@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block content %}
+<h1>Novo mjerenje</h1>
+
+<div class="card-razmak">
+  <div class="card">
+    <div class="card-header">
+      <strong>Odabrani recept: </strong>{{naslov_recepta}}
+    </div>
+    <div class="card-body">
+      <p class="card-text"><strong>Sastojci</strong></p>
+      <p class="card-text">id: {{id}}</p>
+      <p class="card-text">Sol: {{sol}} %</p>
+      <p class="card-text">Papar: {{papar}} %</p>
+      <p class="card-text">Ljuta paprika: {{ljuta_paprika}} %</p>
+      <p class="card-text">Slatka paprika: {{slatka_paprika}} %</p>
+      <p class="card-text">Bijeli luk: {{bijeli_luk}} %</p>
+      <form method="POST"></form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

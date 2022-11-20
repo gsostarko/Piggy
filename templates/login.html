@@ -1,21 +1,45 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+{% for message in get_flashed_messages() %}
+
+<div class="aler-razmak">
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+		<center>
+			<div>
+			<img class="message-img" src="/static/img/check.png" alt="Check mark">
+			{{message}}
+			</div>
+		</center>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+</div>
+{%endfor%}
+
+
+
+
 </br>
 <h1 class="heading">Prijava</h1>
 			<center>
             	<div class="kartica">
 					<img class="logo-large" src="static/img/pig.png" alt="Pig logo">
-					<input class="input-fields" type="text" placeholder="korisničko ime">
+					<form method="POST">
+						{{ forma_prijava.hidden_tag()}}
+
+					{{forma_prijava.username(class="input-fields")}}
 				</br>
-					<input class="input-fields" type="password" placeholder="lozinka">
+				{{forma_prijava.password(class="input-fields")}}
 					</br>
 					</br>
 
-					<a href="#" class="button">Prijava</a>
+					{{forma_prijava.login(class="button")}}
+				</form>
                 </br>
                 <div><p class="tekst-paraf">Nemaš račun?</p>
                 <a href="{{url_for('registracija')}}" class="button">Registriraj se</a>
+			</form>
             </br>
         </div>
                 

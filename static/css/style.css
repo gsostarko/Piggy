@@ -47,6 +47,14 @@
   width: 60%;
 }
 
+.card-razmak {
+  padding: 5%;
+}
+
+.alert-razmak {
+  padding: 3%;
+}
+
 .button,
 .button:link,
 .bbutton:visited {

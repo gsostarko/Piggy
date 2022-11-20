@@ -54,36 +54,32 @@
 
 
 </br>
-<center>
-  <div class="shadow p-3 mb-5 bg-body rounded">
-    <div style="overflow-x:auto;">
-    <table class="table">
-      <thead>
-        <tr>
-          
-          <th scope="col">Naziv recepta</th>
-          <th scope="col">Sol (%)</th>
-          <th scope="col">Papar (%)</th>
-          <th scope="col">Ljuta paprika (%)</th>
-          <th scope="col">Slatka paprika (%)</th>
-          <th scope="col">Bijeli luk (%)</th>
-        </tr>
-      </thead>
+
+
       {%for recepti in recepti_temp%}
-      <tbody>
-        <tr>
-          
-          <td>{{recepti['Naslov_recepta']}}</td>
-          <td>{{recepti['Sol']}}</td>
-          <td>{{recepti['Papar']}}</td>
-          <td>{{recepti['Ljuta_paprika']}}</td>
-          <td>{{recepti['Slatka_paprika']}}</td>
-          <td>{{recepti['Bijeli_luk']}}</td>
-        </tr>
-      </tbody>
-      {%endfor%}
-    </table>
-</div>
+      <div class="card-razmak">
+      <div class="card">
+        <div class="card-header">
+          {{recepti['Naslov_recepta']}}
+        </div>
+        <div class="card-body">
+
+          <p class="card-text"><strong>Sastojci</strong></p>
+          <p class="card-text">id: {{recepti['_id']}}</p>
+          <p class="card-text">Sol: {{recepti['Sol']}} %</p>
+          <p class="card-text">Papar: {{recepti['Papar']}} %</p>
+          <p class="card-text">Ljuta paprika: {{recepti['Ljuta_paprika']}} %</p>
+          <p class="card-text">Slatka paprika: {{recepti['Slatka_paprika']}} %</p>
+          <p class="card-text">Bijeli luk: {{recepti['Bijeli_luk']}} %</p>
+          <form method="POST">
+            <a href="{{url_for('novo_mjerenje', id=recepti['_id']) }}" class="btn btn-primary">Koristi recept</a>
+          </form>
+        </div>
+      </div>
+    
   </div>
-</center>
+      {%endfor%}
+    
+
+
 {% endblock %}

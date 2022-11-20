@@ -1,0 +1,6 @@
+{% extends "base.html" %} {% block content %}
+<h1>Korisničko sučelje</h1>
+
+{%if user.is_authenticated %}
+<h1>logirani ste</h1>
+{%endif%} {% endblock %}
