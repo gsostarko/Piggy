@@ -59,11 +59,12 @@
       {%for recepti in recepti_temp%}
       <div class="card-razmak">
       <div class="card">
+        <form method="POST">
         <div class="card-header">
           {{recepti['Naslov_recepta']}}
         </div>
         <div class="card-body">
-          <form method="POST">
+          
           <p class="card-text"><strong>Sastojci</strong></p>
           <p class="card-text">id: {{recepti['_id']}}</p>
           <p class="card-text">Sol: {{recepti['Sol']}} %</p>
@@ -72,7 +73,7 @@
           <p class="card-text">Slatka paprika: {{recepti['Slatka_paprika']}} %</p>
           <p class="card-text">Bijeli luk: {{recepti['Bijeli_luk']}} %</p>
           
-            <a href="{{url_for('novo_mjerenje', id=recepti['_id'],sol=recepti['Sol'],papar=recepti['Papar'],ljuta_paprika=recepti['Ljuta_paprika'], slatka_paprika=recepti['Slatka_paprika'],bijeli_luk=recepti['Bijeli_luk']) }}" class="btn btn-primary">Koristi recept</a>
+            <a href="{{url_for('novo_mjerenje', id=recepti['_id'],naslov_recepta=recepti['Naslov_recepta'],sol=recepti['Sol'],papar=recepti['Papar'],ljuta_paprika=recepti['Ljuta_paprika'], slatka_paprika=recepti['Slatka_paprika'],bijeli_luk=recepti['Bijeli_luk']) }}" class="button">Koristi recept</a>
           </form>
         </div>
       </div>

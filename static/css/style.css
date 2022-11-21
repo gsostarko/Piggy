@@ -12,10 +12,6 @@
   transition: 0.3s;
 }
 
-.input-fields:focus {
-  border-color: #008000;
-  box-shadow: 0 0 8px 0 #008000;
-}
 .kartica {
   text-align: center;
   width: 50%;
@@ -83,4 +79,26 @@
 
 .tekst-paraf {
   padding: 20px;
+}
+.accordion {
+  --bs-accordion-btn-focus-border-color: ##fff;
+  --bs-accordion-btn-focus-box-shadow: 0px;
+}
+
+.button.accordion-button {
+  background-color: #fff;
+}
+.accordion-button:not(.collapsed) {
+  color: #000;
+  background-color: #fff;
+}
+
+.accordion-button:focus {
+  border-color: #fff;
+  box-shadow: 0px;
+}
+
+.input-fields:focus {
+  border-color: #008000;
+  box-shadow: 0 0 8px 0 #008000;
 }
