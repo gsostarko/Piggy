@@ -55,7 +55,19 @@
 .button:link,
 .bbutton:visited {
   display: inline-block;
-  background-color: #008000;
+  background-color: #90ee90;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0.6rem 1.6rem;
+  border-radius: 3px;
+}
+
+.button-red,
+.button-red:link,
+.bbutton-red:visited {
+  display: inline-block;
+  background-color: #ff0000;
   color: #fff;
   text-decoration: none;
   font-size: 1rem;
@@ -99,6 +111,6 @@
 }
 
 .input-fields:focus {
-  border-color: #008000;
-  box-shadow: 0 0 8px 0 #008000;
+  border-color: #90ee90;
+  box-shadow: 0 0 8px 0 #90ee90;
 }

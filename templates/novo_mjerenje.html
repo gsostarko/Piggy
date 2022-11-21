@@ -81,16 +81,18 @@
     <form method="POST">  
       <div class="accordion-body">
         <input class="button" type="submit" name="action" value="+">
+        <input class="button-red" type="submit" name="action" value="-">
         {{forma_izracun.hidden_tag()}}
        
         {% for polja in range(broj_polja) %}
         
-        <input class = "input-fields" type="text" name="{{polja}}" value="0">
+        <input class = "input-fields" type="text" name="{{polja}}" >
         
       </br>
       
       {%endfor%}
-      {{broj_polja}}
+      
+      
       <input class="button" type="submit" name="action" value="Izračunaj"> 
         
         
