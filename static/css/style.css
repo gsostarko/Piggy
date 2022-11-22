@@ -40,7 +40,7 @@
 }
 
 .button-calculate {
-  background-image: ../img/calculate.png;
+  background-image: url("../static/img/calculate.png");
   background-repeat: no-repeat;
   display: inline-block;
   background-color: #ffffff;
