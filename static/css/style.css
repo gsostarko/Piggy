@@ -39,16 +39,36 @@
   width: 30px;
 }
 
-.button-calculate {
-  background-image: url("../img/calculate.png");
+.button-small {
+  background-image: url("../img/calculate.svg");
   background-repeat: no-repeat;
   display: inline-block;
   background-color: #ffffff;
   color: rgb(0, 0, 0);
   text-decoration: none;
-  font-size: 2rem;
-  padding: 0.6rem 1.6rem;
+  padding: 2rem 2rem;
   border: none;
+  font-size: 0;
+}
+
+.button-calculate {
+  background-image: url("../img/calculate.svg");
+}
+
+.button-add {
+  background-image: url("../img/add.svg");
+}
+
+.button-subtract {
+  background-image: url("../img/subtract.svg");
+}
+
+.button-select {
+  background-image: url("../img/select.svg");
+}
+
+.button-add-user {
+  background-image: url("../img/add_user.svg");
 }
 
 .shadow {
@@ -56,7 +76,7 @@
 }
 
 .card-razmak {
-  padding: 5%;
+  padding: 1rem;
 }
 
 .alert-razmak {

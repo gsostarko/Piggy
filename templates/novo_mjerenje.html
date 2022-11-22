@@ -80,14 +80,16 @@
 
     <form method="POST">  
       <div class="accordion-body">
-        <input hx-post="/test" class="button" type="submit" name="action" value="+">
-        <input class="button-red" type="submit" name="action" value="-">
+        <center>
+        <input hx-post="/test" class="button-small button-add" type="submit" name="action" value="+">
+        <input class="button-small button-subtract" type="submit" name="action" value="-">
+      </center>
         {{forma_izracun.hidden_tag()}}
        
         {% for polja in range(broj_polja) %}
-          
-        <input class = "input-fields" type="text" name="{{polja}}" value="{{temp_value[polja]}}" >
         
+        <input class = "input-fields" type="text" name="{{polja}}" value="{{temp_value[polja]}}" >
+     
       </br>
       
       {%endfor%}
@@ -98,9 +100,9 @@
             
            
 
-
-      <input class="button-calculate" type="submit" name="action" value="Izračunaj"> 
-        
+      <center>
+      <input class="button-small button-calculate" type="submit" name="action" value="Izračunaj"> 
+    </center>
         
         
 </br>
