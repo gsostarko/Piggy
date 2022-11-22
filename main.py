@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, flash, jsonify, redirect, request
+from flask import Flask, render_template, flash, jsonify, redirect, request, session, abort
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FloatField, PasswordField, BooleanField, ValidationError
 
@@ -35,10 +35,10 @@ app.db = client.kolinje
 
 
 # Add Database
-app.secret_key = "72feWvvsBCi25kvXqY"
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = 'login'
+app.secret_key = os.environ.get("SECRET_KEY")
+
+
+
 
 # GLOBALNE VARIJABLE
 preracunata_sol =None
@@ -48,6 +48,7 @@ preracunata_s_paprika = None
 preracunat_luk = None
 uk_smjese = None
 temp_value = []
+users = {}
 
 ##DB insert model
 def add_recepie(naziv_recepta,sol, papar, bijeli_luk, ljuta_paprika, slatka_paprika):
@@ -60,7 +61,7 @@ def add_recepie(naziv_recepta,sol, papar, bijeli_luk, ljuta_paprika, slatka_papr
         'Slatka_paprika': slatka_paprika,
         'Datum_kreiranja' : datetime.datetime.now()
     }
-    return recepture.insert_one(document)
+    return client.kolinjerecepture.insert_one(document)
 
 def user_registration(username, email, password):
     user = {
@@ -70,7 +71,7 @@ def user_registration(username, email, password):
         'datum_registracije': datetime.datetime.now()
     }
 
-    return korisnici.insert_one(user)
+    return client.kolinje.korisnici.insert_one(user)
 
 
 
@@ -120,21 +121,6 @@ class User(UserMixin):
         return True
 
 
-@login_manager.user_loader
-def load_user(id):
-    db = client.get_database('kolinje')
-    collection = db.get_collection('korisnici')
-    filter = {}
-
-    podaci = collection.find(filter)
-    korisnici_temp = []
-    for each_doc in podaci:
-        korisnici_temp.append(each_doc)
-    #print(korisnici_temp)
-    if korisnici_temp:
-        username = korisnici_temp[0]['username']
-        password = korisnici_temp[0]['_id']
-        return User(username,password)
 
 # Create a rout decorator
 @app.route('/')
@@ -204,6 +190,11 @@ def novo_mjerenje(id,sol, papar, ljuta_paprika, slatka_paprika, bijeli_luk, nasl
             preracunata_lj_paprika = float(meso) * float(ljuta_paprika) /100
             preracunata_s_paprika = float(meso) * float(slatka_paprika) /100
             preracunat_luk = float(meso) * float(bijeli_luk) / 100
+            preracunata_sol = round(preracunata_sol,1)
+            preracunati_papar= round(preracunati_papar,1)
+            preracunata_lj_paprika = round(preracunata_lj_paprika,1)
+            preracunata_s_paprika = round(preracunata_s_paprika,1)
+            preracunat_luk = round(preracunat_luk,1)
             uk_smjese = float(meso) + preracunata_sol + preracunati_papar + preracunata_lj_paprika + preracunata_s_paprika + preracunat_luk
             uk_smjese = round(uk_smjese, 1)
             broj_polja = 1
@@ -292,7 +283,6 @@ def login():
     return render_template('login.html', forma_prijava=forma_prijava, username = username, password = password)
 
 @app.route('/recepti',methods=['GET', 'POST'])
-
 def recepti():
     naziv_recepta = None
     sol = None
@@ -335,90 +325,99 @@ def popis_recepata():
 
 @app.route('/registracija', methods=['GET', 'POST'])
 def registracija():
-    username = None
-    email = None
-    password = None
-    password_confirm = None
-    form = RegistrationForm()
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        users[username] = password
+        password_confirm = request.form.get("password_confirm")
+        
+        session["username"] = username
+
+    return render_template('registracija.html')
+
+    # username = None
+    # email = None
+    # password = None
+    # password_confirm = None
+    # form = RegistrationForm()
     
-    db = client.get_database('kolinje')
-    collection = db.get_collection('korisnici')
-    filter = {}
+    # db = client.get_database('kolinje')
+    # collection = db.get_collection('korisnici')
+    # filter = {}
 
-    podaci = collection.find(filter)
-    korisnici_temp = []
-    for each_doc in podaci:
-        korisnici_temp.append(each_doc)
-    #print(korisnici_temp)
+    # podaci = collection.find(filter)
+    # korisnici_temp = []
+    # for each_doc in podaci:
+    #     korisnici_temp.append(each_doc)
+    # #print(korisnici_temp)
 
-    if form.validate_on_submit():
-        username = form.username.data
-        email = form.email.data
-        password = form.password.data
-        password_confirm = form.password_confirm.data
+    # if form.validate_on_submit():
+    #     username = form.username.data
+    #     email = form.email.data
+    #     password = form.password.data
+    #     password_confirm = form.password_confirm.data
 
-        #print(password, password_confirm)
+    #     #print(password, password_confirm)
 
         
-        ### REGISTRACIJSKI DIO FUNKCIJE I SPREMANJE U BAZU
-        if password != password_confirm:
-            flash('Passwords don\'t match.', category="error")
-            return redirect('registracija')
+    #     ### REGISTRACIJSKI DIO FUNKCIJE I SPREMANJE U BAZU
+    #     if password != password_confirm:
+    #         flash('Passwords don\'t match.', category="error")
+    #         return redirect('registracija')
         
-        else:
-            db = client.get_database('kolinje')
-            collection = db.get_collection('korisnici')
-            filter = {'username': username}
+    #     else:
+    #         db = client.get_database('kolinje')
+    #         collection = db.get_collection('korisnici')
+    #         filter = {'username': username}
 
-            podaci = collection.find(filter)
-            korisnici_temp = []
-            for each_doc in podaci:
-                korisnici_temp.append(each_doc)
+    #         podaci = collection.find(filter)
+    #         korisnici_temp = []
+    #         for each_doc in podaci:
+    #             korisnici_temp.append(each_doc)
 
-            if korisnici_temp:
-                for i in range(len(korisnici_temp)):
-                    if korisnici_temp[i]['username'] == username:
-                        flash(f'Korisnik s korisničkim imenom {username} već postoji.')
-                        return redirect('registracija')
+    #         if korisnici_temp:
+    #             for i in range(len(korisnici_temp)):
+    #                 if korisnici_temp[i]['username'] == username:
+    #                     flash(f'Korisnik s korisničkim imenom {username} već postoji.')
+    #                     return redirect('registracija')
                         
-                    else:
-                        user_registration(username, email, password=generate_password_hash(password, method="sha256"))
-                        #print("test")
+    #                 else:
+    #                     user_registration(username, email, password=generate_password_hash(password, method="sha256"))
+    #                     #print("test")
                         
-                        flash(f'Račun s korisničkim imenom: {username} je uspješno kreiran.')
+    #                     flash(f'Račun s korisničkim imenom: {username} je uspješno kreiran.')
                         
-                        return redirect('registracija')
-            else: 
-                user_registration(username, email, password=generate_password_hash(password, method="sha256"))
-                #print("test")
-                flash(f'Račun s korisničkim imenom: {username} je uspješno kreiran.')
-                return redirect('registracija')
+    #                     return redirect('registracija')
+    #         else: 
+    #             user_registration(username, email, password=generate_password_hash(password, method="sha256"))
+    #             #print("test")
+    #             flash(f'Račun s korisničkim imenom: {username} je uspješno kreiran.')
+    #             return redirect('registracija')
 
      
             
         
         
-    return render_template('registracija.html', username=username, password=password, password_confirm=password_confirm, form=form, korisnici_temp = korisnici_temp)
+    # return render_template('registracija.html', username=username, password=password, password_confirm=password_confirm, form=form, korisnici_temp = korisnici_temp)
 
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
     logout_user()
     return render_template('index.html')
 
-@app.route('/update/<id>', methods=['GET', 'POST'])
-def update(id):
-    form = RegistrationForm()
-    username_to_update = None
-    #print(id)
 
 @app.route('/dashboard/', methods=['GET', 'POST'])
 def dashboard():
     return render_template('dashboard.html', user=current_user)  
 
-
+app.get("/protected")
+def protected():
+    if not session.get("_id"):
+        abort(401)
+    return render_template("protected.html")
 
 
 
 if __name__ == '__main__':
-    app.run(debug = 'DEBUG', host='0.0.0.0', port=80)
-    #app.run()
+    app.run(debug = 'DEBUG', host='0.0.0.0', port=0)
+    

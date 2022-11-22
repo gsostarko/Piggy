@@ -21,28 +21,23 @@
 {%endfor%}
 </br>
 <center>
-<div class="shadow p-3 mb-5 bg-body rounded">
+
 <h1 class="heading">Registracija novog korisnika</h1>
 
 
             	<div class="kartica">
 					<img class="logo-large" src="static/img/register.png" alt="Novi korisnik">
-                    <form method="POST"> 
-                    {{form.hidden_tag()}}
-                    {{form.username(class="input-fields")}}
-
-                    {{form.email(class="input-fields")}}
+                    
 					
-				</br>
-                    {{form.password(class="input-fields")}}
-                </br>
-                    {{form.password_confirm(class="input-fields")}}
-				</br>
-				</br>
-                    {{form.register(class="button")}}
+					<form method="POST"> 
+						<input class="input-fields" type="username" name="username">
+						<input class="input-fields" type="email" name="email" oninvalid="this.setCustomValidity('E-mail adresa mora sadržavati znak &quot@&quot. Primjer: ivan.horvat@gmail.com')" placeholder="Vaša e-mail adresa" />			
+						<input class="input-fields" type="password" name="password"/>
+						<input class="input-fields" type="password" name="password_confirm"/>
+						<input class="button-small button-add-user" type="submit" value="Prijava"/>
 
-                </br>
-            </form>
+                		</br>
+            		</form>
         </div>
                 
             
@@ -74,6 +69,6 @@
 {%endfor%}
 </table>
 </div>
-</div>
+
 </center>
 {% endblock %}

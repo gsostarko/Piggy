@@ -43,12 +43,17 @@
   background-image: url("../img/calculate.svg");
   background-repeat: no-repeat;
   display: inline-block;
-  background-color: #ffffff;
+  background-color: #ededed;
   color: rgb(0, 0, 0);
   text-decoration: none;
   padding: 2rem 2rem;
   border: none;
   font-size: 0;
+  width: 100px;
+  background-position: center;
+  border-radius: 32px;
+  width: 64px;
+  box-shadow: 2px 5px 10px rgba(220, 220, 220, 0.5);
 }
 
 .button-calculate {
@@ -69,6 +74,10 @@
 
 .button-add-user {
   background-image: url("../img/add_user.svg");
+}
+
+.button-login {
+  background-image: url("../img/login.svg");
 }
 
 .shadow {
