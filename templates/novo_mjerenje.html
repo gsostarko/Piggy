@@ -80,24 +80,31 @@
 
     <form method="POST">  
       <div class="accordion-body">
-        <input class="button" type="submit" name="action" value="+">
+        <input hx-post="/test" class="button" type="submit" name="action" value="+">
         <input class="button-red" type="submit" name="action" value="-">
         {{forma_izracun.hidden_tag()}}
        
         {% for polja in range(broj_polja) %}
-        
-        <input class = "input-fields" type="text" name="{{polja}}" >
+          
+        <input class = "input-fields" type="text" name="{{polja}}" value="{{temp_value[polja]}}" >
         
       </br>
       
       {%endfor%}
       
       
+                
+              
+            
+           
+
+
       <input class="button" type="submit" name="action" value="Izračunaj"> 
         
         
         
 </br>
+{% if uk_smjese %}
         Sol = {{preracunata_sol}} g
       </br>
         Papar = {{preracunati_papar}} g
@@ -109,10 +116,11 @@
         Bijeli luk = {{preracunat_luk}} g 
       </br>
       <strong>Smjesa (ukupno):</strong> {{uk_smjese}} g
+      {%endif%}
       </form>
       </div>
     </div>
   </div>
 </div>
-</div>
+
 {% endblock %}

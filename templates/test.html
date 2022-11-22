@@ -1,0 +1,15 @@
+
+<form hx-post="/test" hx-swap="outerHTML" hx-target="#input_field" > 
+    <div id="input_field"> 
+{% for polja in range(broj_polja) %}
+
+     
+    <input  class = "input-fields" type="text" name="{{polja}}" value="{{polja}}" >
+        
+      </br>
+     
+    
+      {%endfor%}
+    </div> 
+    </form>
+   
