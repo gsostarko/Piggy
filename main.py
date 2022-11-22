@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, flash, jsonify, redirect, request
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FloatField, PasswordField, BooleanField, ValidationError
@@ -8,26 +9,29 @@ from datetime import datetime
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
-import pymongo
+from dotenv import load_dotenv
+from pymongo import MongoClient
 import datetime 
 
+load_dotenv()
 
+app = Flask(__name__)
 
-#client = pymongo.MongoClient("mongodb+srv://gsostarko:mmsw.32E@cluster0.adehxey.mongodb.net/?retryWrites=true&w=majority")
-client = pymongo.MongoClient("mongodb://mongo:wvVg7SpdTrlt4RC1Z844@containers-us-west-117.railway.app:6622")
+#client = MongoClient("mongodb+srv://gsostarko:mmsw.32E@cluster0.adehxey.mongodb.net/?retryWrites=true&w=majority")
+client = MongoClient(os.environ.get("MONGODB_URI"))
 
-db = client['kolinje']
+app.db = client.kolinje
 
 #collections
-recepture = db['recepture']
-korisnici = db['korisnici']
-termin_kolinja = db['termin_kolinja']
+#recepture = db['recepture']
+#korisnici = db['korisnici']
+#termin_kolinja = db['termin_kolinja']
 
 
 
 
 #Create a flask instance
-app = Flask(__name__)
+
 
 
 # Add Database
