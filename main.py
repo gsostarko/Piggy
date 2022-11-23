@@ -50,6 +50,8 @@ preracunat_luk = None
 uk_smjese = None
 temp_value = []
 users = {}
+popis_kolinja = {}
+
 
 ##DB insert model
 def add_recepie(naziv_recepta,sol, papar, bijeli_luk, ljuta_paprika, slatka_paprika):
@@ -74,6 +76,23 @@ def user_registration(username, email, password):
 
     return app.db.korisnici.insert_one(user)
 
+def kolinje(naziv_kolinja):
+    kolinje = {
+        'naziv_kolinja': naziv_kolinja
+    }
+    return app.db.kolinja.insert_one(kolinje)
+
+def vaganje(id_kolinja,sol,papar,ljuta_paprika,slatka_paprika,bijeli_luk,tezina_mesa):
+    vaganje = {
+        'id_kolinja': id_kolinja,
+        'sol': sol,
+        'papar': papar,
+        'ljuta_paprika': ljuta_paprika,
+        'slatka_paprika': slatka_paprika,
+        'bijeli_luk': bijeli_luk,
+        'tezina_mesa': tezina_mesa
+    }
+    return app.db.vaganje.insert_one(vaganje)
 
 
 class LoginForm(FlaskForm):
@@ -140,6 +159,11 @@ def novo_mjerenje(id,sol, papar, ljuta_paprika, slatka_paprika, bijeli_luk, nasl
     forma_izracun = IzracunForm()
     global temp_value
     
+    filter = {}
+    nazivi = app.db.kolinja.find(filter)
+    popis_kolinja = []
+    for each_doc in nazivi:
+        popis_kolinja.append(each_doc)
     
     if request.method == 'GET':   
         db = client.get_database('kolinje')
@@ -148,7 +172,7 @@ def novo_mjerenje(id,sol, papar, ljuta_paprika, slatka_paprika, bijeli_luk, nasl
         filter = {}
         
         podaci = collection.find(filter)
-        print(naslov_recepta)
+        
 
         for recept in podaci:
             if str(recept['_id']) == id:
@@ -162,13 +186,13 @@ def novo_mjerenje(id,sol, papar, ljuta_paprika, slatka_paprika, bijeli_luk, nasl
                 broj_polja = 1
                
 
-                return render_template('novo_mjerenje.html', id=id, naslov_recepta=naslov_recepta, sol=sol, papar=papar, ljuta_paprika=ljuta_paprika, slatka_paprika=slatka_paprika, bijeli_luk=bijeli_luk, forma_izracun=forma_izracun, kolicina_mesa=kolicina_mesa, broj_polja=broj_polja,temp_value=temp_value)
+                return render_template('novo_mjerenje.html', id=id, naslov_recepta=naslov_recepta, sol=sol, papar=papar, ljuta_paprika=ljuta_paprika, slatka_paprika=slatka_paprika, bijeli_luk=bijeli_luk, forma_izracun=forma_izracun, kolicina_mesa=kolicina_mesa, broj_polja=broj_polja,temp_value=temp_value, popis_kolinja=popis_kolinja)
 
     
     if request.method == "POST":
-        
+        id_kolinja = request.form.get('odabir_klanja')
         if request.form["action"]=="Izračunaj":
-            print(naslov_recepta)
+            
             global preracunata_sol
             global preracunati_papar 
             global preracunata_lj_paprika 
@@ -184,7 +208,7 @@ def novo_mjerenje(id,sol, papar, ljuta_paprika, slatka_paprika, bijeli_luk, nasl
                 else:
                     meso_temp = int(request.values[str(i)])
                 meso += meso_temp
-            print(type(meso))
+            
             
             preracunata_sol = float(meso) * float(sol) /100
             preracunati_papar = float(meso) * float(papar) /100
@@ -200,7 +224,11 @@ def novo_mjerenje(id,sol, papar, ljuta_paprika, slatka_paprika, bijeli_luk, nasl
             uk_smjese = round(uk_smjese, 1)
             broj_polja = 1
             temp_value = []
-            return render_template('novo_mjerenje.html', id=id, naslov_recepta=naslov_recepta, sol=sol, papar=papar, ljuta_paprika=ljuta_paprika, slatka_paprika=slatka_paprika, bijeli_luk=bijeli_luk, forma_izracun=forma_izracun, kolicina_mesa=kolicina_mesa,preracunata_sol=preracunata_sol, preracunati_papar=preracunati_papar, preracunata_lj_paprika=preracunata_lj_paprika,preracunata_s_paprika=preracunata_s_paprika, preracunat_luk=preracunat_luk, uk_smjese=uk_smjese, broj_polja=broj_polja,temp_value=temp_value)
+
+            
+            
+            vaganje(id_kolinja=id_kolinja,sol=sol,papar=papar,ljuta_paprika=ljuta_paprika,slatka_paprika=slatka_paprika,bijeli_luk=bijeli_luk,tezina_mesa=meso)
+            return render_template('novo_mjerenje.html', id=id, naslov_recepta=naslov_recepta, sol=sol, papar=papar, ljuta_paprika=ljuta_paprika, slatka_paprika=slatka_paprika, bijeli_luk=bijeli_luk, forma_izracun=forma_izracun, kolicina_mesa=kolicina_mesa,preracunata_sol=preracunata_sol, preracunati_papar=preracunati_papar, preracunata_lj_paprika=preracunata_lj_paprika,preracunata_s_paprika=preracunata_s_paprika, preracunat_luk=preracunat_luk, uk_smjese=uk_smjese, broj_polja=broj_polja,temp_value=temp_value,  popis_kolinja=popis_kolinja)
 
         if request.form["action"] == "+":
             values = request.values
@@ -215,9 +243,9 @@ def novo_mjerenje(id,sol, papar, ljuta_paprika, slatka_paprika, bijeli_luk, nasl
                 print(i)
                 print(values[str(i)])
                 temp_value.insert(i, values[str(i)])
-            print(temp_value)
+            
 
-            return render_template('novo_mjerenje.html', id=id, naslov_recepta=naslov_recepta, sol=sol, papar=papar, ljuta_paprika=ljuta_paprika, slatka_paprika=slatka_paprika, bijeli_luk=bijeli_luk, forma_izracun=forma_izracun, broj_polja=broj_polja, temp_value=temp_value)
+            return render_template('novo_mjerenje.html', id=id, naslov_recepta=naslov_recepta, sol=sol, papar=papar, ljuta_paprika=ljuta_paprika, slatka_paprika=slatka_paprika, bijeli_luk=bijeli_luk, forma_izracun=forma_izracun, broj_polja=broj_polja, temp_value=temp_value, popis_kolinja=popis_kolinja)
 
 
             
@@ -229,7 +257,7 @@ def novo_mjerenje(id,sol, papar, ljuta_paprika, slatka_paprika, bijeli_luk, nasl
                 if broj_polja < 1:
                     broj_polja = 1
             #print(broj_polja)
-            return render_template('novo_mjerenje.html', id=id, naslov_recepta=naslov_recepta, sol=sol, papar=papar, ljuta_paprika=ljuta_paprika, slatka_paprika=slatka_paprika, bijeli_luk=bijeli_luk, forma_izracun=forma_izracun, broj_polja=broj_polja,temp_value=temp_value)
+            return render_template('novo_mjerenje.html', id=id, naslov_recepta=naslov_recepta, sol=sol, papar=papar, ljuta_paprika=ljuta_paprika, slatka_paprika=slatka_paprika, bijeli_luk=bijeli_luk, forma_izracun=forma_izracun, broj_polja=broj_polja,temp_value=temp_value, popis_kolinja=popis_kolinja)
 broj_polja_ = 0
 @app.route('/test',methods=['GET', 'POST'])
 def test():
@@ -381,6 +409,32 @@ def brisanje_recepta(id):
         recepti_temp.append(each_doc)
 
     return render_template('popis_recepata.html', recepti_temp=recepti_temp)
+
+@app.route('/pregled_kolinja', methods=['GET', 'POST'])
+def popis_kolinja():
+    filter = {}
+    nazivi = app.db.kolinja.find(filter)
+    vaganja = app.db.vaganje.find(filter)
+    popis_kolinja = []
+    
+    for popis in nazivi:
+        popis_kolinja.append(popis)
+
+    vaganje_temp=[]
+    for each_doc in vaganja:
+        vaganje_temp.append(each_doc)
+
+    print(popis_kolinja)
+
+    print(vaganje_temp)
+
+    if request.method == 'POST':
+        naziv_kolinja = request.form.get("naziv_kolinja")
+        kolinje(naziv_kolinja)
+
+    
+    return render_template('pregled_kolinja.html', vaganje_temp=vaganje_temp)
+
 
 @app.route('/registracija', methods=['GET', 'POST'])
 def registracija():

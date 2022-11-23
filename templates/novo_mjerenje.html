@@ -45,7 +45,7 @@
         aria-expanded="false"
         aria-controls="panelsStayOpen-collapseTwo"
       >
-        <strong>Korak 2: Unos naziva kolinja </strong>
+        <strong>Korak 2: Odabir kolinja </strong>
       </button>
     </h2>
     <div
@@ -54,6 +54,13 @@
       aria-labelledby="panelsStayOpen-headingTwo"
     >
       <div class="accordion-body">
+        <form method="POST">  
+        <select class="form-select input-fields" aria-label="Default select example" name="odabir_klanja">
+          <option selected>Odaberite klanje...</option>
+          {%for kolinja in popis_kolinja%}
+          <option value="{{kolinja['_id']}}">{{kolinja['naziv_kolinja']}}</option>
+          {%endfor%}
+        </select>
         
       </div>
     </div>
@@ -78,7 +85,7 @@
     >
     
 
-    <form method="POST">  
+    
       <div class="accordion-body">
         <center>
         <input class="button-small button-add" type="submit" name="action" value="+">

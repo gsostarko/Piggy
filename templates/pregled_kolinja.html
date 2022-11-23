@@ -1,0 +1,34 @@
+{% extends "base.html" %} {% block content %}
+<form method="POST">
+  <input class="input-fields" type="text" name="naziv_kolinja" />
+  <input class="button-small button-save" type="submit" value="Spremi" />
+</form>
+
+
+{%for vaganje in vaganje_temp%}
+      <div class="card-razmak">
+      <div class="card">
+        <form method="POST">
+        <div class="card-header">
+          <strong>{{vaganje['id_kolinja']}}</strong>
+        
+        </div>
+        <div class="card-body">
+          
+          <p class="card-text"><strong>Sastojci</strong></p>
+          
+          <p class="card-text">Sol: {{vaganje['sol']}} %</p>
+          <p class="card-text">Papar: {{vaganje['papar']}} %</p>
+          <p class="card-text">Ljuta paprika: {{vaganje['ljuta_paprika']}} %</p>
+          <p class="card-text">Slatka paprika: {{vaganje['slatka_paprika']}} %</p>
+          <p class="card-text">Bijeli luk: {{vaganje['bijeli_luk']}} %</p>
+          <p class="card-text">Količina mesa: {{vaganje['tezina_mesa']}} g</p>
+        </div>
+    </div>
+  
+  
+
+</div>
+  {%endfor%}
+
+{% endblock %}
