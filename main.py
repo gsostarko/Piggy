@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, flash, jsonify, redirect, request, session, abort
+from flask import Flask, render_template, flash, jsonify, redirect, request, session, abort, url_for
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FloatField, PasswordField, BooleanField, ValidationError
 
@@ -11,6 +11,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from dotenv import load_dotenv
 from pymongo import MongoClient
+from bson.objectid import ObjectId
 import datetime 
 
 load_dotenv()
@@ -61,7 +62,7 @@ def add_recepie(naziv_recepta,sol, papar, bijeli_luk, ljuta_paprika, slatka_papr
         'Slatka_paprika': slatka_paprika,
         'Datum_kreiranja' : datetime.datetime.now()
     }
-    return client.kolinjerecepture.insert_one(document)
+    return app.db.recepture.insert_one(document)
 
 def user_registration(username, email, password):
     user = {
@@ -71,7 +72,7 @@ def user_registration(username, email, password):
         'datum_registracije': datetime.datetime.now()
     }
 
-    return client.kolinje.korisnici.insert_one(user)
+    return app.db.korisnici.insert_one(user)
 
 
 
@@ -310,16 +311,74 @@ def recepti():
 
 @app.route('/popis_recepata',methods=['GET', 'POST'])
 def popis_recepata():
-    db = client.get_database('kolinje')
-    collection = db.get_collection('recepture')
     filter = {}
 
-    podaci = collection.find(filter)
+    podaci = app.db.recepture.find(filter)
     recepti_temp = []
     for each_doc in podaci:
          recepti_temp.append(each_doc)
-         #print(recepti_temp)
-    #print(recepti_temp)
+    
+
+    return render_template('popis_recepata.html', recepti_temp=recepti_temp)
+
+@app.route('/azuriranje_recepta/<id>', methods=['POST', 'GET'])
+def azuriranje_recepta(id):
+    
+    
+    filter = {}
+        
+    podaci = app.db.recepture.find(filter)
+    
+
+    for recept in podaci:
+        if str(recept['_id']) == id:
+            recept=recept
+            break
+    
+
+    if request.method == 'POST':
+        edited_id= request.form.get("edited_id")
+        edited_sol = float(request.form.get("edited_sol"))
+        edited_papar = float(request.form.get("edited_papar"))
+        edited_slatka_paprika = float(request.form.get("edited_slatka_paprika"))
+        edited_ljuta_paprika = float(request.form.get("edited_ljuta_paprika"))
+        edited_bijeli_luk = float(request.form.get("edited_bijeli_luk"))
+        edited_date = datetime.datetime.now()
+        
+        data_for_update = {
+            "$set": {"Sol": float(edited_sol),
+            "Papar": edited_papar,
+            "Slatka_paprika": edited_slatka_paprika,
+            "Ljuta_paprika": edited_ljuta_paprika,
+            "Bijeli_luk": edited_bijeli_luk,
+            "Update_date": edited_date}
+        }
+        
+        update = app.db.recepture.update_one({'_id': ObjectId(id)}, data_for_update)
+        #print(update.matched_count)
+
+        filter = {}
+
+        podaci = app.db.recepture.find(filter)
+        recepti_temp = []
+        for each_doc in podaci:
+            recepti_temp.append(each_doc)
+
+        return render_template('popis_recepata.html', recepti_temp=recepti_temp)
+    return render_template('azuriranje_recepta.html', recept=recept)
+
+@app.route('/brisanje_recepta/<id>', methods=['POST', 'GET'])
+def brisanje_recepta(id):
+    
+    app.db.recepture.delete_one({'_id': ObjectId(id)})
+    print(id)
+
+    filter = {}
+
+    podaci = app.db.recepture.find(filter)
+    recepti_temp = []
+    for each_doc in podaci:
+        recepti_temp.append(each_doc)
 
     return render_template('popis_recepata.html', recepti_temp=recepti_temp)
 

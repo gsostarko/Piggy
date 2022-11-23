@@ -61,7 +61,8 @@
       <div class="card">
         <form method="POST">
         <div class="card-header">
-          {{recepti['Naslov_recepta']}}
+          <strong>{{recepti['Naslov_recepta']}}</strong>
+        </br>Datum kreiranja: {{recepti['Datum_kreiranja']}}
         </div>
         <div class="card-body">
           
@@ -72,15 +73,24 @@
           <p class="card-text">Ljuta paprika: {{recepti['Ljuta_paprika']}} %</p>
           <p class="card-text">Slatka paprika: {{recepti['Slatka_paprika']}} %</p>
           <p class="card-text">Bijeli luk: {{recepti['Bijeli_luk']}} %</p>
-          
+        
+          <div>
+            <div class="buttons_left isti-red-div">
             <a href="{{url_for('novo_mjerenje', id=recepti['_id'],naslov_recepta=recepti['Naslov_recepta'],sol=recepti['Sol'],papar=recepti['Papar'],ljuta_paprika=recepti['Ljuta_paprika'], slatka_paprika=recepti['Slatka_paprika'],bijeli_luk=recepti['Bijeli_luk']) }}" class="button-small button-select"></a>
-          </form>
+          </div>
+          <div class="buttons-right">
+            <a href="{{url_for('azuriranje_recepta', id=recepti['_id'],)}}" class="button-small button-edit"></a>
+            <a href="{{url_for('brisanje_recepta', id=recepti['_id'],)}}" class="button-small button-delete"></a>
+            
+          </div>
+        </div>
+      </form>
         </div>
       </div>
     
   </div>
       {%endfor%}
     
-
+          
 
 {% endblock %}

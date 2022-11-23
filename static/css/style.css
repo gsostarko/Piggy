@@ -80,6 +80,30 @@
   background-image: url("../img/login.svg");
 }
 
+.button-edit {
+  background-image: url("../img/edit.svg");
+}
+
+.button-delete {
+  background-image: url("../img/delete.svg");
+}
+
+.button-save {
+  background-image: url("../img/save.svg");
+}
+
+.buttons-left {
+  float: left;
+}
+
+.buttons-right {
+  float: right;
+}
+
+.isti-red-div {
+  display: inline;
+}
+
 .shadow {
   width: 60%;
 }

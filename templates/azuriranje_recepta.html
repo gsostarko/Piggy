@@ -1,0 +1,63 @@
+{% extends "base.html" %} {% block content %} 
+
+
+
+
+{% for message in get_flashed_messages() %}
+
+</br>
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+		<center>
+			<div>
+			<img class="message-img" src="/static/img/check.png" alt="Check mark">
+			{{message}}
+			</div>
+		</center>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+
+{%endfor%}
+</br>
+
+
+<h1 class="heading">Uređivanje recepta</h1>
+			<center>
+            
+				<div class="kartica">
+                    <div><img class="logo-large" src="/static/img/pepper.png" alt="Začini"></div>
+					
+                <p>Unesite željene izmjene u polja. Unesite količine sastojaka u postotku (%) u odgovarajuća polja te spremite uređeni recept.</p>
+				
+					
+				
+				<form method="POST">
+                    <label>Identifikacijski broj recepta:</label>
+                    <input class="input-fields" type="text" name="edited_id" value="{{recept['_id']}}"disabled>
+
+                    <label>Količina soli (%):</label>
+                    <input class="input-fields" type="text" name="edited_sol" value="{{recept['Sol']}}">
+
+                    <label>Količina papra (%):</label>
+                    <input class="input-fields" type="text" name="edited_papar" value="{{recept['Papar']}}">
+
+                    <label>Količina slatke paprike (%):</label>
+                    <input class="input-fields" type="text" name="edited_slatka_paprika" value="{{recept['Slatka_paprika']}}">
+
+                    <label>Količina ljute paprike (%):</label>
+                    <input class="input-fields" type="text" name="edited_ljuta_paprika" value="{{recept['Ljuta_paprika']}}">
+
+                    <label>Količina bijelog luka (%):</label>
+                    <input class="input-fields" type="text" name="edited_bijeli_luk" value="{{recept['Bijeli_luk']}}">
+
+                    <input class="button-small button-save" type="submit" value="Prijava"/>
+				</form>
+				
+				</div>
+			</center>
+
+
+
+
+
+
+{% endblock %}
