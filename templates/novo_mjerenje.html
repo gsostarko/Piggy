@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+
+{% block content %}
 <h1 class="heading">Novo mjerenje</h1>
 {{forma_izracun.hidden_tag()}}
 
@@ -35,36 +37,7 @@
       </div>
     </div>
   </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-      <button
-        class="accordion-button collapsed"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#panelsStayOpen-collapseTwo"
-        aria-expanded="false"
-        aria-controls="panelsStayOpen-collapseTwo"
-      >
-        <strong>Korak 2: Odabir kolinja </strong>
-      </button>
-    </h2>
-    <div
-      id="panelsStayOpen-collapseTwo"
-      class="accordion-collapse collapse "
-      aria-labelledby="panelsStayOpen-headingTwo"
-    >
-      <div class="accordion-body">
-        <form method="POST">  
-        <select class="form-select input-fields" aria-label="Default select example" name="odabir_klanja">
-          <option selected>Odaberite klanje...</option>
-          {%for kolinja in popis_kolinja%}
-          <option value="{{kolinja['_id']}}">{{kolinja['naziv_kolinja']}}</option>
-          {%endfor%}
-        </select>
-        
-      </div>
-    </div>
-  </div>
+
   <div class="accordion-item">
     <h2 class="accordion-header" id="panelsStayOpen-headingThree">
       <button
@@ -75,7 +48,7 @@
         aria-expanded="false"
         aria-controls="panelsStayOpen-collapseThree"
       >
-        <strong>Korak 3: Unos količine mesa i izračun sastojaka </strong>
+        <strong>Korak 2: Unos količine mesa i izračun sastojaka </strong>
       </button>
     </h2>
     <div
@@ -85,7 +58,7 @@
     >
     
 
-    
+    <form method="POST">  
       <div class="accordion-body">
         <center>
         <input class="button-small button-add" type="submit" name="action" value="+">
@@ -110,7 +83,7 @@
       <center>
       <input class="button-small button-calculate" type="submit" name="action" value="Izračunaj"> 
     </center>
-        
+  </form>  
         
 </br>
 {% if uk_smjese %}
@@ -125,8 +98,29 @@
         Bijeli luk = {{preracunat_luk}} g 
       </br>
       <strong>Smjesa (ukupno):</strong> {{uk_smjese}} g
+
+
+
+
+
+
+
+
+      <form method ="POST">
+        <select class="form-select input-fields" aria-label="Default select example" name="odabir_klanja">
+          <option value="" disabled selected>Odaberite kolinje...</option>
+              {%for kolinja in popis_kolinja%}
+              <option value="{{kolinja['_id']}}">{{kolinja['naziv_kolinja']}}</option>
+            {%endfor%}
+        </select>
+      
+      <center>
+        <input class="button-small button-save" type="submit" name="action" value="Spremi"/>
+      </center>
+    </form>
       {%endif%}
-      </form>
+      
+      
       </div>
     </div>
   </div>

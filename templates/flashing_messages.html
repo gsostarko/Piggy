@@ -1,0 +1,20 @@
+{%with messages = get_flashed_messages(with_categories=true) %} {%if messages %}
+{%for category, message in messages %}
+{% if category == "warning"%}
+<div class="alert alert-{{category}} alert-dismissible fade show" role="alert"">
+    <center>
+        <img class="message-img" src="/static/img/success.svg" alt="Check mark">
+    {{message|capitalize}}
+</center>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
+    {%endif%}
+
+    {% if category == "danger"%}
+<div class="alert alert-{{category}} alert-dismissible fade show" role="alert"">
+    <center>
+        <img class="message-img" src="/static/img/warning.svg" alt="Check mark">
+    {{message|capitalize}}
+</center>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
+    {%endif%}
+{%endfor%} {%endif%} {%endwith%}
