@@ -85,6 +85,7 @@ def kolinje(naziv_kolinja):
     return app.db.kolinja.insert_one(kolinje)
 
 def vaganje(id_kolinja,sol,papar,ljuta_paprika,slatka_paprika,bijeli_luk,tezina_mesa):
+    _id = ObjectId(id_kolinja)
     vaganje = {
         'id_kolinja': id_kolinja,
         'sol': sol,
@@ -94,7 +95,8 @@ def vaganje(id_kolinja,sol,papar,ljuta_paprika,slatka_paprika,bijeli_luk,tezina_
         'bijeli_luk': bijeli_luk,
         'tezina_mesa': tezina_mesa
     }
-    return app.db.vaganje.insert_one(vaganje)
+    return app.db.kolinja.update_one({"_id": _id}, {"$addToSet": {'vaganja': vaganje}})
+    #app.db.vaganje.insert_one(vaganje),
 
 
 class LoginForm(FlaskForm):
@@ -471,7 +473,7 @@ def popis_kolinja():
         kolinje(naziv_kolinja)
 
     
-    return render_template('pregled_kolinja.html', vaganje_temp=vaganje_temp)
+    return render_template('pregled_kolinja.html', vaganje_temp=vaganje_temp, printer=printer)
 
 
 @app.route('/registracija', methods=['GET', 'POST'])

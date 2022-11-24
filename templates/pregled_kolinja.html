@@ -5,30 +5,52 @@
 </form>
 
 
-{%for vaganje in vaganje_temp%}
+
+{%for print in printer %}
+
+  
+
+    
+
+
+{%for i in print%}
       <div class="card-razmak">
       <div class="card">
         <form method="POST">
         <div class="card-header">
-          <strong>{{vaganje['id_kolinja']}}</strong>
+          <strong>ID kolinja: </strong>{{i['_id']}}
         
         </div>
         <div class="card-body">
           
-          <p class="card-text"><strong>Sastojci</strong></p>
+          {%for j in i['vaganja']%}
+      {%set tezina = j['tezina_mesa']|int%}
+      
+     <p>Vaganje: {{tezina}} g</p> 
+    </br>
+      
+      
+    {%endfor%}
+  
+   <p class="card-text"><strong>Ukupna težina: </strong>{{ i['vaganja'] | sum(attribute='tezina_mesa') }} g</p> 
+</br>
+
+
+
+         
           
-          <p class="card-text">Sol: {{vaganje['sol']}} %</p>
-          <p class="card-text">Papar: {{vaganje['papar']}} %</p>
-          <p class="card-text">Ljuta paprika: {{vaganje['ljuta_paprika']}} %</p>
-          <p class="card-text">Slatka paprika: {{vaganje['slatka_paprika']}} %</p>
-          <p class="card-text">Bijeli luk: {{vaganje['bijeli_luk']}} %</p>
-          <p class="card-text">Količina mesa: {{vaganje['tezina_mesa']}} g</p>
         </div>
     </div>
   
   
 
 </div>
-  {%endfor%}
+{%endfor%}
+{%endfor%}
+
+ <!---->
+ 
+
+
 
 {% endblock %}
