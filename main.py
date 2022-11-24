@@ -14,6 +14,8 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 import datetime 
 
+from db_querry import Upiti
+
 load_dotenv()
 
 app = Flask(__name__)
@@ -247,7 +249,7 @@ def novo_mjerenje(id,sol, papar, ljuta_paprika, slatka_paprika, bijeli_luk, nasl
                 
                 flash("Mjerenje niste dodijelili niti jednom kolinju. Odaberite kolinje te pokušajte ponovno spremiti mjerenje.", category="danger")
                 
-                return render_template('novo_mjerenje.html', id=id, naslov_recepta=naslov_recepta, sol=sol, papar=papar, ljuta_paprika=ljuta_paprika, slatka_paprika=slatka_paprika, bijeli_luk=bijeli_luk, forma_izracun=forma_izracun, kolicina_mesa=kolicina_mesa,preracunata_sol=preracunata_sol, preracunati_papar=preracunati_papar, preracunata_lj_paprika=preracunata_lj_paprika,preracunata_s_paprika=preracunata_s_paprika, preracunat_luk=preracunat_luk, broj_polja=broj_polja,temp_value=temp_value,  popis_kolinja=popis_kolinja,temp_kolinje=temp_kolinje)
+                return render_template('novo_mjerenje.html', id=id, naslov_recepta=naslov_recepta, sol=sol, papar=papar, ljuta_paprika=ljuta_paprika, slatka_paprika=slatka_paprika, bijeli_luk=bijeli_luk, forma_izracun=forma_izracun, kolicina_mesa=kolicina_mesa,preracunata_sol=preracunata_sol, preracunati_papar=preracunati_papar, preracunata_lj_paprika=preracunata_lj_paprika,preracunata_s_paprika=preracunata_s_paprika, preracunat_luk=preracunat_luk, broj_polja=broj_polja,temp_value=temp_value,  popis_kolinja=popis_kolinja,temp_kolinje=temp_kolinje, uk_smjese=uk_smjese)
 
             else:
                 temp_kolinje = id_kolinja
@@ -442,6 +444,8 @@ def brisanje_recepta(id):
 
     return render_template('popis_recepata.html', recepti_temp=recepti_temp)
 
+
+
 @app.route('/pregled_kolinja', methods=['GET', 'POST'])
 def popis_kolinja():
     filter = {}
@@ -455,10 +459,12 @@ def popis_kolinja():
     vaganje_temp=[]
     for each_doc in vaganja:
         vaganje_temp.append(each_doc)
+    
+    #FUNKCIJA ZA FILTRIRANJE PODATAKA
+    printer = Upiti.filtriranje_vaganja()
+    
 
-    #print(popis_kolinja)
 
-    #print(vaganje_temp)
 
     if request.method == 'POST':
         naziv_kolinja = request.form.get("naziv_kolinja")
