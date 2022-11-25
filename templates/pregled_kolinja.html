@@ -1,17 +1,24 @@
 {% extends "base.html" %} {% block content %}
+
+<center>
+<h1 class="heading">Pregled kolinja</h1>
+
+<div class="card-razmak">
+  <div class="card">
+  <div class="card-header">
+  <strong>Naziv novog kolinja:</strong>
+</div>
 <form method="POST">
-  <input class="input-fields" type="text" name="naziv_kolinja" />
-  <input class="button-small button-save" type="submit" value="Spremi" />
+  <input class="input-fields" type="text" name="naziv_kolinja"/>
+  <input class="button-small button-save" type="submit" value="Spremi"/>
 </form>
+</br>
 
-
+</div>
+</div>
+</center>
 
 {%for print in printer %}
-
-  
-
-    
-
 
 {%for i in print%}
       <div class="card-razmak">

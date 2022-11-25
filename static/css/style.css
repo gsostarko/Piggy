@@ -2,10 +2,10 @@
   font-family: "Roboto", sans-serif;
 }
 .input-fields {
-  width: 100%;
+  width: 90%;
   border: 2px solid #aaa;
   border-radius: 0px;
-  margin: 8px;
+  margin: 10px;
   outline: none;
   padding: 8px;
   box-sizing: border-box;
@@ -92,6 +92,15 @@
   background-image: url("../img/save.svg");
 }
 
+.button-cancel {
+  background-image: url("../img/cancel.svg");
+}
+
+.brisanje-modal-header {
+  background-color: #ff0000;
+  color: #ffffff;
+}
+
 .buttons-left {
   float: left;
 }
@@ -154,8 +163,11 @@
   width: 20%;
 }
 
+.paraf {
+  margin-bottom: 0;
+}
 .tekst-paraf {
-  padding: 20px;
+  padding: 10px;
 }
 .accordion {
   --bs-accordion-btn-focus-border-color: ##fff;

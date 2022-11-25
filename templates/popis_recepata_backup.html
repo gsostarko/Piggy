@@ -76,10 +76,10 @@
         
           <div>
             <div class="buttons_left isti-red-div">
-            <a href="{{url_for('novo_mjerenje', id=recepti['_id'])}}" class="button-small button-select"></a>
+            <a href="{{url_for('novo_mjerenje', id=recepti['_id'],naslov_recepta=recepti['Naslov_recepta'],sol=recepti['Sol'],papar=recepti['Papar'],ljuta_paprika=recepti['Ljuta_paprika'], slatka_paprika=recepti['Slatka_paprika'],bijeli_luk=recepti['Bijeli_luk']) }}" class="button-small button-select"></a>
           </div>
           <div class="buttons-right">
-            <a href="{{url_for('azuriranje_recepta', id=recepti['_id'],)}}" class="button-small button-edit"></a>
+            <a href="{{url_for('azuriranje_recepta', id=recepti['_id'])}}" class="button-small button-edit"></a>
 
 
 

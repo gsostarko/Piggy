@@ -1,8 +1,9 @@
 {% extends "base.html" %} 
 
 {% block content %}
+<br />
 <h1 class="heading">Novo mjerenje</h1>
-{{forma_izracun.hidden_tag()}}
+
 
 
 <div class="card-razmak">
@@ -17,8 +18,9 @@
         aria-expanded="true"
         aria-controls="panelsStayOpen-collapseOne"
       >
+        {% for kolinje in klanje%}
         <div><strong>Korak 1: Odabrani recept</strong> 
-        </br>{{ naslov_recepta}}</div>
+        </br>{{ kolinje['Naslov_recepta']}}</div>
       </button>
     </h2>
     <div
@@ -26,18 +28,20 @@
       class="accordion-collapse collapse "
       aria-labelledby="panelsStayOpen-headingOne"
     >
+    
+    
       <div class="accordion-body">
         <p><strong>Sastojci</strong></p>
-        <p>id: {{id}}</p>
-        <p>Sol: {{sol}} %</p>
-        <p>Papar: {{papar}} %</p>
-        <p>Ljuta paprika: {{ljuta_paprika}} %</p>
-        <p>Slatka paprika: {{slatka_paprika}} %</p>
-        <p>Bijeli luk: {{bijeli_luk}} %</p>
+        <p>id: {{kolinje['_id']}}</p>
+        <p>Sol: {{kolinje['Sol']}} %</p>
+        <p>Papar: {{kolinje['Papar']}} %</p>
+        <p>Ljuta paprika: {{kolinje['Ljuta_paprika']}} %</p>
+        <p>Slatka paprika: {{kolinje['Slatka_paprika']}} %</p>
+        <p>Bijeli luk: {{kolinje['Bijeli_luk']}} %</p>
       </div>
     </div>
   </div>
-
+  {%endfor%}
   <div class="accordion-item">
     <h2 class="accordion-header" id="panelsStayOpen-headingThree">
       <button
@@ -64,14 +68,14 @@
         <input class="button-small button-add" type="submit" name="action" value="+">
         <input class="button-small button-subtract" type="submit" name="action" value="-">
       </center>
-        {{forma_izracun.hidden_tag()}}
+        
        
         {% for polja in range(broj_polja) %}
-        
+        <center>
         <input class = "input-fields" type="text" name="{{polja}}" value="{{temp_value[polja]}}" >
      
       </br>
-      
+    </center>
       {%endfor%}
       
       
@@ -87,15 +91,15 @@
         
 </br>
 {% if uk_smjese %}
-        Sol = {{preracunata_sol}} g
+        Sol = {{izracun['preracunata_sol']}} g
       </br>
-        Papar = {{preracunati_papar}} g
+        Papar = {{izracun['preracunati_papar']}} g
       </br>
-        Ljuta paprika = {{preracunata_lj_paprika}} g
+        Ljuta paprika = {{izracun['preracunata_lj_paprika']}} g
       </br>
-        Slatka paprika = {{preracunata_s_paprika}} g
+        Slatka paprika = {{izracun['preracunata_s_paprika']}} g
       </br>
-        Bijeli luk = {{preracunat_luk}} g 
+        Bijeli luk = {{izracun['preracunati_luk']}} g 
       </br>
       <strong>Smjesa (ukupno):</strong> {{uk_smjese}} g
 
