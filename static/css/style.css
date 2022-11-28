@@ -148,9 +148,10 @@ html {
 
 .button,
 .button:link,
-.bbutton:visited {
+.button:visited {
   display: inline-block;
-  background-color: #90ee90;
+  background-color: #ff0000;
+  font-weight: 600;
   color: #fff;
   text-decoration: none;
   font-size: 1rem;
@@ -270,7 +271,12 @@ html {
 .hero-img-box {
   padding: 3rem;
 }
-
+.hero-buttons {
+  display: inline-block;
+}
+.margin-right-sm {
+  margin-right: 1.6rem;
+}
 @media (max-width: 34em) {
   .hero {
     max-width: 110rem;
@@ -286,5 +292,8 @@ html {
   }
   .hero {
     grid-template-columns: 1fr;
+  }
+  .margin-right-sm {
+    margin-bottom: 1.6rem;
   }
 }
