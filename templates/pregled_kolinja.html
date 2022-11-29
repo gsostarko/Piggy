@@ -118,7 +118,7 @@
 </br>
 
   <div class="buttons-left">
-    <a type="button" class="button-small button-info">
+    <a type="button" class="button-small button-info" data-bs-toggle="modal" data-bs-target="#edit{{i['_id']}}">
     </a>
   </div>
   <div class="buttons-right">
@@ -151,6 +151,7 @@
       <div class="modal-body">
         <p><strong>ID kolinja:</strong> {{i['_id']}}</p>
         <p><strong>Naziv kolinja:</strong> {{i['naziv_kolinja']}}</p>
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="button-small button-cancel" data-bs-dismiss="modal">Close</button>
@@ -162,6 +163,69 @@
 {%endfor%}
   {%endfor%}     
 
+
+<!--MODAL ZA EDIT KOLINJA-->
+{%for print in printer %}
+ 
+{%for i in print%}  
+
+<div class="modal fade" id="edit{{i['_id']}}" tabindex="-1" aria-labelledby="brisnje-kolinja" aria-hidden="true">
+ <div class="modal-dialog">
+   <div class="modal-content">
+     <div class="modal-header brisanje-modal-header">
+       <h5 class="modal-title" id="edit-kolinja">Jeste li sigurni da želite obrisati kolinje?</h5>
+     </div>
+     <div class="modal-body">
+      <ul class="list-group">
+        <li class="list-group-item">
+       <p><strong>ID kolinja:</strong> {{i['_id']}}</p>
+       <p><strong>Naziv kolinja:</strong> {{i['naziv_kolinja']}}</p>
+      </li>
+       {%for j in i['vaganja']%}
+       
+       <li class="list-group-item">
+        <table class="tablica-kolinja">
+          <thead>
+          <tr>
+            <th >Sol (%)</th>
+            <th >Papar (%)</th>
+            <th >Ljuta paprika (%)</th>
+            <th >Slatka paprika (%)</th>
+            <th >Bijeli luk (%)</th>
+          </tr>
+        </thead>
+        <tr>
+          <td>{{j['sol']}}</td>
+          <td>{{j['papar']}}</td>
+          <td>{{j['ljuta_paprika']}}</td>
+          <td>{{j['slatka_paprika']}}</td>
+          <td>{{j['bijeli_luk']}}</td>
+        </tr>
+        </table>
+      <div>
+        <div class="isti_red_div">
+          <p class="isti_red_div"><strong>Izvagana količina mesa: </strong>{{j['tezina_mesa']}}</p>
+        </div>
+        <div class="isti_red_div kolinje-delete">
+          
+          <a href="{{url_for('edit_kolinja', id=i['_id'], idx=loop.index)}}" class="button-small button-delete"></a>
+          
+        </div>
+      </div>
+      </li>
+        {%endfor%}
+      </ul>
+    </div>
+
+     <div class="modal-footer">
+       <button type="button" class="button-small button-cancel" data-bs-dismiss="modal">Close</button>
+       
+     </div>
+   </div>
+ </div>
+</div>
+{%endfor%}
+ {%endfor%}     
 
 
 {% endblock %}

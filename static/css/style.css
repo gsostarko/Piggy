@@ -136,7 +136,11 @@ html {
 }
 
 .isti-red-div {
-  display: inline;
+  display: inline-block;
+}
+
+.kolinje-delete {
+  float: right;
 }
 
 .shadow {

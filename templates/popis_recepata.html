@@ -79,12 +79,12 @@
             <a href="{{url_for('novo_mjerenje', id=recepti['_id'])}}" class="button-small button-select"></a>
           </div>
           <div class="buttons-right">
-            <a href="{{url_for('azuriranje_recepta', id=recepti['_id'],)}}" class="button-small button-edit"></a>
+            
 
 
-
+            <a type="button" class="button-small button-edit" data-bs-toggle="modal" data-bs-target="#edit{{recepti['_id']}}"></a>
             <a type="button" class="button-small button-delete" data-bs-toggle="modal" data-bs-target="#brisanje{{recepti['_id']}}"></a>
-            <a type="button" class="button-small button-save" data-bs-toggle="modal" data-bs-target="#edit{{recepti['_id']}}"></a>
+            
             
           </div>
         </div>

@@ -608,6 +608,20 @@ def brisanje_kolinja(id):
     return redirect('/pregled_kolinja')
     
 
+@app.route('/edit_kolinja/<id><idx>', methods=['GET','POST'])
+def edit_kolinja(id,idx):
+    print(id)
+    print(idx)
+
+    filter = {'_id': ObjectId(id)}
+    nazivi = app.db.kolinja.find(filter)
+    popis_kolinja = []
+    for popis in nazivi:
+        popis_kolinja.append(popis)
+    print(popis_kolinja)
+
+    return redirect('/pregled_kolinja')
+
 @app.route('/registracija', methods=['GET', 'POST'])
 def registracija():
     if request.method == "POST":
