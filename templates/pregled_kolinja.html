@@ -17,33 +17,107 @@
 </div>
 </div>
 </center>
+{{printer['naziv_kolinja']}}
+{%set sol_uk = [0]%}
+{%set papar_uk = [0]%}
+{%set ljuta_paprika_uk = [0]%}
+{%set slatka_paprika_uk = [0]%}
+{%set bijeli_luk_uk = [0]%}
 
 {%for print in printer %}
 
 {%for i in print%}
+      
       <div class="card-razmak">
       <div class="card">
         <form method="POST">
         <div class="card-header">
           <strong>ID kolinja: </strong>{{i['_id']}}
+          <p>Naziv kolinja: {{i['naziv_kolinja']}}</p>
         
         </div>
         <div class="card-body">
           
+          <table class="tablica-kolinja">
+            <thead>
+            <tr>
+              <th width="30px">#</th>
+              <th width="80px">Meso (g)</th>
+              <th width="80px">Sol (g)</th>
+              <th width="80px">Papar (g)</th>
+              <th width="80px">Ljuta paprika (g)</th>
+              <th width="80px">Slatka paprika (g)</th>
+              <th width="80px">Bijeli luk (g)</th>
+            </tr>
+          </thead>
           {%for j in i['vaganja']%}
+
+      {%set sol = j['sol']|float%}
+      {%set papar = j['papar']|float%}
+      {%set ljuta_paprika = j['ljuta_paprika']|float%}
+      {%set slatka_paprika = j['slatka_paprika']|float%}
+      {%set bijeli_luk = j['bijeli_luk']|float%}
       {%set tezina = j['tezina_mesa']|int%}
+      {%set sol_med = tezina*sol/100 %}
+      {%set papar_med = tezina*papar/100 %}
+      {%set ljuta_paprika_med = tezina*ljuta_paprika/100 %}
+      {%set slatka_paprika_med = tezina*slatka_paprika/100 %}
+      {%set bijeli_luk_med = tezina*bijeli_luk/100 %}
+      <tr>
+        <td>{{loop.index}}</td>
+        <td>{{tezina}}</td>
+        <td>{{sol_med}}</td>
+        <td>{{papar_med}}</td>
+        <td>{{ljuta_paprika_med}}</td>
+        <td>{{slatka_paprika_med}}</td>
+        <td>{{bijeli_luk_med}}</td>
+      </tr>
       
-     <p>Vaganje: {{tezina}} g</p> 
-    </br>
+      {% set _ = sol_uk.append(sol_uk.pop() + sol_med) %}
+      {% set _ = papar_uk.append(papar_uk.pop() + papar_med) %}
+      {% set _ = ljuta_paprika_uk.append(ljuta_paprika_uk.pop() + ljuta_paprika_med) %}
+      {% set _ = slatka_paprika_uk.append(slatka_paprika_uk.pop() + slatka_paprika_med) %}
+      {% set _ = bijeli_luk_uk.append(bijeli_luk_uk.pop() + bijeli_luk_med) %}
+
+      {%endfor%}
+     {%set uk_tezina_mesa = i['vaganja'] | sum(attribute='tezina_mesa') %}
+     
+    
+
+    
+    
       
-      
-    {%endfor%}
   
-   <p class="card-text"><strong>Ukupna težina: </strong>{{ i['vaganja'] | sum(attribute='tezina_mesa') }} g</p> 
+    <tfoot>
+      <tr>
+        <td></td>
+        <td><strong>{{ uk_tezina_mesa }}</strong></td>
+        <td><strong>{{sol_uk[0]}}</strong></td>
+        <td><strong>{{papar_uk[0]}}</strong></td>
+        <td><strong>{{ljuta_paprika_uk[0]}}</strong></td>
+        <td><strong>{{slatka_paprika_uk[0]}}</strong></td>
+        <td><strong>{{bijeli_luk_uk[0]}}</strong></td>
+      </tr>
+    </tfoot>
+    
+  </table>
+    
+      
+      
+   
+  
+   <p class="card-text"><strong>Ukupna masa smjese: </strong> {{uk_tezina_mesa + sol_uk[0] + papar_uk[0] + ljuta_paprika_uk[0] + slatka_paprika_uk[0] + bijeli_luk_uk[0]}} g</p> 
 </br>
+  <div class="buttons-left">
+    <a type="button" class="button-small button-info">
+    </a>
+  </div>
+  <div class="buttons-right">
+    <a type="button" class="button-small button-delete" data-bs-toggle="modal" data-bs-target="#brisanje{{i['_id']}}">
+    </a>
 
 
-
+</div>
          
           
         </div>
@@ -55,8 +129,28 @@
 {%endfor%}
 {%endfor%}
 
- <!---->
- 
+ <!--MODAL ZA BRISANJE-->
+ {%for recepti in recepti_temp%}
+ {%for i in print%}  
+<div class="modal fade" id="brisanje{{i['_id']}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header brisanje-modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Jeste li sigurni da želite obrisati recept?</h5>
+      </div>
+      <div class="modal-body">
+        <p><strong>ID recepta:</strong> {{i['_id']}}</p>
+        <p><strong>Naziv recepta:</strong> {{recepti['Naslov_recepta']}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="button-small button-cancel" data-bs-dismiss="modal">Close</button>
+        <a href="{{url_for('brisanje_kolinja', id=i['_id'])}}" class="button-small button-select"></a>
+      </div>
+    </div>
+  </div>
+</div>
+{%endfor%}
+  {%endfor%}     
 
 
 

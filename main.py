@@ -219,7 +219,7 @@ def novo_mjerenje(id):
                 meso += meso_temp
 
             popis_zacina=list(klanje)
-            izracun = Izracuni.IzracunVaganja(sol=popis_zacina[0].get('Sol'), papar=popis_zacina[0].get('Papar'), ljuta_paprika=popis_zacina[0].get('Ljuta_paprika'), slatka_paprika=popis_zacina[0].get('Slatka_paprika'), bijeli_luk=popis_zacina[0].get('Bijeli_luk'),meso=meso)
+            izracun = Izracuni.IzracunVaganja(sol=float(popis_zacina[0].get('Sol')), papar=popis_zacina[0].get('Papar'), ljuta_paprika=popis_zacina[0].get('Ljuta_paprika'), slatka_paprika=popis_zacina[0].get('Slatka_paprika'), bijeli_luk=popis_zacina[0].get('Bijeli_luk'),meso=meso)
 
             print(izracun)    
             sastojci = 0
@@ -583,6 +583,11 @@ def popis_kolinja():
     
     return render_template('pregled_kolinja.html', vaganje_temp=vaganje_temp, printer=printer)
 
+@app.route('/brisanje_kolinja/<id>', methods=['POST', 'GET'])
+def brisanje_kolinja(id):
+    app.db.kolinja.delete_one({'id': ObjectId(id)})
+    
+    return redirect('pregled_kolinja')
 
 @app.route('/registracija', methods=['GET', 'POST'])
 def registracija():

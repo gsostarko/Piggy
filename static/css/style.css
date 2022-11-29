@@ -50,8 +50,8 @@ html {
 .button-small {
   background-repeat: no-repeat;
   display: inline-block;
-  background-color: #ededed;
-  color: rgb(0, 0, 0);
+  background-color: #008d92;
+  filter: invert(1);
   text-decoration: none;
   padding: 2rem 2rem;
   border: none;
@@ -60,6 +60,7 @@ html {
   background-position: center;
   border-radius: 32px;
   width: 64px;
+  height: 64px;
   box-shadow: 2px 5px 10px rgba(220, 220, 220, 0.5);
 }
 
@@ -101,6 +102,10 @@ html {
 
 .button-cancel {
   background-image: url("../img/cancel.svg");
+}
+
+.button-info {
+  background-image: url("../img/info.svg");
 }
 
 .navbar-brand {
@@ -183,6 +188,29 @@ html {
 
 .oddo {
   width: 20%;
+}
+
+.tablica-kolinja {
+  border-collapse: colapse;
+  width: 25em;
+  margin: 25px auto;
+  text-align: center;
+}
+
+.tablica-kolinja thead tr {
+  border-bottom: 1px dashed #000;
+
+  vertical-align: top;
+}
+
+.tablica-kolinja tfoot tr {
+  border-top: 1px dashed #000;
+}
+
+.tablica-kolinje thead tr td {
+  font-size: 16px;
+  letter-spacing: 1px;
+  padding: 8px;
 }
 
 .paraf {

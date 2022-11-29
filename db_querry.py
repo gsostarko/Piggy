@@ -18,11 +18,10 @@ class Upiti():
             id_kolinja.append(i)
         for j in id_kolinja:
             print(j)
-            lista = list(db.kolinja.find({"_id":j['_id']},{"vaganja.tezina_mesa":1}))
+            lista = list(db.kolinja.find({"_id":j['_id']},{"naziv_kolinja":1 , "vaganja.tezina_mesa":1, "vaganja.sol":1, "vaganja.papar":1,"vaganja.ljuta_paprika":1,"vaganja.slatka_paprika":1,"vaganja.bijeli_luk":1,}))
             print(lista)
             output.append(lista)
-        # for i in id_kolinja:
-        #     dict = list(db.kolinja.find({"_id": id_kolinja[i]}))
-        
+       
+            print(output)
         
         return output
