@@ -219,7 +219,7 @@ def novo_mjerenje(id):
                 meso += meso_temp
 
             popis_zacina=list(klanje)
-            izracun = Izracuni.IzracunVaganja(sol=float(popis_zacina[0].get('Sol')), papar=popis_zacina[0].get('Papar'), ljuta_paprika=popis_zacina[0].get('Ljuta_paprika'), slatka_paprika=popis_zacina[0].get('Slatka_paprika'), bijeli_luk=popis_zacina[0].get('Bijeli_luk'),meso=meso)
+            izracun = Izracuni.IzracunVaganja(sol=popis_zacina[0].get('Sol'), papar=popis_zacina[0].get('Papar'), ljuta_paprika=popis_zacina[0].get('Ljuta_paprika'), slatka_paprika=popis_zacina[0].get('Slatka_paprika'), bijeli_luk=popis_zacina[0].get('Bijeli_luk'),meso=meso)
 
             print(izracun)    
             sastojci = 0
