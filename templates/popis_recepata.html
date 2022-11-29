@@ -83,10 +83,8 @@
 
 
 
-            <a type="button" class="button-small button-delete" data-bs-toggle="modal" data-bs-target="#brisanje{{recepti['_id']}}">
-              
-            </a>
-
+            <a type="button" class="button-small button-delete" data-bs-toggle="modal" data-bs-target="#brisanje{{recepti['_id']}}"></a>
+            <a type="button" class="button-small button-save" data-bs-toggle="modal" data-bs-target="#edit{{recepti['_id']}}"></a>
             
           </div>
         </div>
@@ -117,6 +115,53 @@
   </div>
 </div>
 
-  {%endfor%}        
+  {%endfor%} 
+  
+  
+
+  {%for recepti in recepti_temp%}
+  <!-- Modal za uređenje recepta -->
+<div class="modal fade" id="edit{{recepti['_id']}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+  <div class="modal-header brisanje-modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Ažuriranje recepta</h5>
+  </div>
+  <div class="modal-body">
+    <form method="POST" action="/azuriranje_recepta/{{recepti['_id']}}" id="form1">
+      <label>Identifikacijski broj recepta:</label>
+      <input class="input-fields" type="text" name="edited_id" value="{{recepti['_id']}}"disabled>
+
+      <label>Količina soli (%):</label>
+      <input class="input-fields" type="text" name="edited_sol" value="{{recepti['Sol']}}">
+
+      <label>Količina papra (%):</label>
+      <input class="input-fields" type="text" name="edited_papar" value="{{recepti['Papar']}}">
+
+      <label>Količina slatke paprike (%):</label>
+      <input class="input-fields" type="text" name="edited_slatka_paprika" value="{{recepti['Slatka_paprika']}}">
+
+      <label>Količina ljute paprike (%):</label>
+      <input class="input-fields" type="text" name="edited_ljuta_paprika" value="{{recepti['Ljuta_paprika']}}">
+
+      <label>Količina bijelog luka (%):</label>
+      <input class="input-fields" type="text" name="edited_bijeli_luk" value="{{recepti['Bijeli_luk']}}">
+    </div>
+  </form>
+    <div class="modal-footer">
+      <button type="button" class="button-small button-cancel" data-bs-dismiss="modal">Close</button>
+      <button type="submit" id="btnUpdate" class="button-small button-save" form="form1" >Submit</button>
+      
+    </div>
+  </div>
+
+    
+
+</div>
+  
+</div>
+</div>
+
+{%endfor%}    
 
 {% endblock %}

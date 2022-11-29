@@ -198,19 +198,24 @@ html {
 }
 
 .tablica-kolinja thead tr {
-  border-bottom: 1px dashed #000;
+  border-bottom: 1px solid #000;
 
   vertical-align: top;
 }
 
 .tablica-kolinja tfoot tr {
-  border-top: 1px dashed #000;
+  border-top: 1px solid #000;
 }
 
 .tablica-kolinje thead tr td {
   font-size: 16px;
   letter-spacing: 1px;
   padding: 8px;
+}
+
+.card-header {
+  background-color: #ff726f;
+  color: #fff;
 }
 
 .paraf {
@@ -238,8 +243,8 @@ html {
 }
 
 .input-fields:focus {
-  border-color: #90ee90;
-  box-shadow: 0 0 8px 0 #90ee90;
+  border-color: #ff726f;
+  box-shadow: 0 0 8px 0 #ff726f;
 }
 
 .menu-bar {

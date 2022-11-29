@@ -249,6 +249,7 @@ def novo_mjerenje(id):
 
             elif id_kolinja != None or id_kolinja != "Odaberite kolinje...": 
                 popis_zacina=list(klanje)
+                print(popis_zacina)
                 vaganje(id_kolinja=id_kolinja,sol=popis_zacina[0].get('Sol'), papar=popis_zacina[0].get('Papar'), ljuta_paprika=popis_zacina[0].get('Ljuta_paprika'), slatka_paprika=popis_zacina[0].get('Slatka_paprika'), bijeli_luk=popis_zacina[0].get('Bijeli_luk'),tezina_mesa=meso)
                 
                 
@@ -506,7 +507,8 @@ def azuriranje_recepta(id):
             recept=recept
             break
     
-
+    print(id)
+    print(recept)
     if request.method == 'POST':
         edited_id= request.form.get("edited_id")
         edited_sol = float(request.form.get("edited_sol"))
@@ -535,14 +537,14 @@ def azuriranje_recepta(id):
         for each_doc in podaci:
             recepti_temp.append(each_doc)
 
-        return render_template('popis_recepata.html', recepti_temp=recepti_temp)
-    return render_template('azuriranje_recepta.html', recept=recept)
+        return redirect('/popis_recepata')
+    return redirect('/popis_recepata')
 
 @app.route('/brisanje_recepta/<id>', methods=['POST', 'GET'])
 def brisanje_recepta(id):
     
     app.db.recepture.delete_one({'_id': ObjectId(id)})
-    print(id)
+    
 
     filter = {}
 
@@ -572,22 +574,39 @@ def popis_kolinja():
     #FUNKCIJA ZA FILTRIRANJE PODATAKA
     printer = Upiti.filtriranje_vaganja()
     
-
+    
 
 
     if request.method == 'POST':
         naziv_kolinja = request.form.get("naziv_kolinja")
         kolinje(naziv_kolinja)
 
-        return redirect('pregled_kolinja')
+        return redirect('/pregled_kolinja')
     
     return render_template('pregled_kolinja.html', vaganje_temp=vaganje_temp, printer=printer)
 
 @app.route('/brisanje_kolinja/<id>', methods=['POST', 'GET'])
 def brisanje_kolinja(id):
-    app.db.kolinja.delete_one({'id': ObjectId(id)})
     
-    return redirect('pregled_kolinja')
+    filter = {}
+    nazivi = app.db.kolinja.find(filter)
+    vaganja = app.db.vaganje.find(filter)
+    popis_kolinja = []
+    
+    for popis in nazivi:
+        popis_kolinja.append(popis)
+
+    vaganje_temp=[]
+    for each_doc in vaganja:
+        vaganje_temp.append(each_doc)
+    
+    #FUNKCIJA ZA FILTRIRANJE PODATAKA
+    printer = Upiti.filtriranje_vaganja()
+
+    app.db.kolinja.delete_one({'_id': ObjectId(id)})
+
+    return redirect('/pregled_kolinja')
+    
 
 @app.route('/registracija', methods=['GET', 'POST'])
 def registracija():
