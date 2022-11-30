@@ -654,13 +654,13 @@ def protected():
     return render_template("protected.html")
 
 
-@app.route('/pdf_kolinja')
-def pdf_kolinja():
+@app.route('/pdf_kolinja/<id>')
+def pdf_kolinja(id):
     # rendered = render_template('pdf_kolinja.html')
     # pdf = pdfkit.from_string(rendered, False)
 
     import pdf
-    pdf.pdf_kolinja()
+    pdf.pdf_kolinja(id)
     
     return send_from_directory(directory='static/pdf_temp',
                                 path='kolinje.pdf',
