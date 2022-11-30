@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, flash, jsonify, redirect, request, session, abort, url_for
+from flask import Flask, render_template, flash, jsonify, redirect, request, session, abort, url_for, make_response, send_from_directory
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FloatField, PasswordField, BooleanField, ValidationError
 
@@ -13,7 +13,9 @@ from dotenv import load_dotenv
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 import datetime 
+import pdfkit
 
+### Custom libraries
 from db_querry import Upiti
 from izracuni import Izracuni
 
@@ -652,6 +654,17 @@ def protected():
     return render_template("protected.html")
 
 
+@app.route('/pdf_kolinja')
+def pdf_kolinja():
+    # rendered = render_template('pdf_kolinja.html')
+    # pdf = pdfkit.from_string(rendered, False)
+
+    import pdf
+    pdf.pdf_kolinja()
+    
+    return send_from_directory(directory='static/pdf_temp',
+                                path='kolinje.pdf',
+                                mimetype='application/pdf')
 
 if __name__ == '__main__':
     app.run(debug = 'DEBUG', host='0.0.0.0', port=80)

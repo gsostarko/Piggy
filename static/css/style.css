@@ -108,6 +108,10 @@ html {
   background-image: url("../img/info.svg");
 }
 
+.button-pdf {
+  background-image: url("../img/pdf.svg");
+}
+
 .navbar-brand {
   background-image: url("../img/kolinje_navbar_logo.svg");
   height: 60px;
