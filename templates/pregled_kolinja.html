@@ -122,7 +122,9 @@
     </a>
   </div>
   <div class="buttons-right">
+    {%if uk_tezina_mesa > 0 %}
     <a href="{{url_for('pdf_kolinja', id=i['_id'])}}" class="button-small button-pdf"></a>
+    {%endif%}
     <a type="button" class="button-small button-delete" data-bs-toggle="modal" data-bs-target="#brisanje{{i['_id']}}" >
     </a>
 </div>  

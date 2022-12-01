@@ -69,7 +69,7 @@ def pdf_kolinja(id):
 
     
     pdf.set_font('helvetica', 'B', 16)
-    pdf.cell(0,20, f'Zapis kolinja', 0, 1, 'C')
+    pdf.cell(0,20, f'Vagarski list', 0, 1, 'C')
 
 
     header=(
@@ -93,12 +93,8 @@ def pdf_kolinja(id):
         pdf.ln(line_height)
 
     pdf.set_font('helvetica', 'B', 10)
-    pdf.cell(col_width, line_height, f'')
-    pdf.cell(col_width, line_height, f'')
-    pdf.cell(col_width, line_height, f'')
-    pdf.cell(col_width, line_height, f'')
-    pdf.cell(col_width, line_height, f'')
-    pdf.cell(col_width, line_height, f'')
+    pdf.cell(col_width*5, line_height, f'')
+    pdf.cell(col_width, line_height, f'Ukupno (g):', 1, 0, 'C')
     pdf.cell(col_width, line_height, f'{sum_meso}', 1, 0, 'C')
     pdf.cell(col_width, line_height, f'{sum_sol}', 1, 0, 'C')
     pdf.cell(col_width, line_height, f'{sum_papar}', 1, 0, 'C')
@@ -106,18 +102,9 @@ def pdf_kolinja(id):
     pdf.cell(col_width, line_height, f'{sum_slatka_p}', 1, 0, 'C')
     pdf.cell(col_width, line_height, f'{sum_bijeli_luk}', 1, 0, 'C')
     pdf.ln(line_height)
-    pdf.cell(col_width, line_height, f'')
-    pdf.cell(col_width, line_height, f'')
-    pdf.cell(col_width, line_height, f'')
-    pdf.cell(col_width, line_height, f'')
-    pdf.cell(col_width, line_height, f'')
-    pdf.cell(col_width, line_height, f'')
-    pdf.cell(col_width, line_height, f'')
-    pdf.cell(col_width, line_height, f'')
-    pdf.cell(col_width, line_height, f'')
-    pdf.cell(col_width, line_height, f'')
-    pdf.cell(col_width, line_height, f'Sveukupno:',1,0,'L')
+    pdf.cell(col_width*9, line_height, f'')
+    pdf.cell(col_width*2, line_height, f'SVEUKUPNO (g):',1,0,'L')
     pdf.cell(col_width, line_height, f'{ukupno_meso}',1,0,'C')
 
-    return pdf.output(f'static/pdf_temp/kolinje-{id}.pdf', 'F')
+    return pdf.output(f'static/pdf_temp/kolinje.pdf', 'F')
     
