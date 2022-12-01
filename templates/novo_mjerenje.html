@@ -61,7 +61,7 @@
       aria-labelledby="panelsStayOpen-headingThree"
     >
     
-
+    {% if not uk_smjese %}
     <form method="POST">  
       <div class="accordion-body">
         <center>
@@ -88,7 +88,7 @@
       <input class="button-small button-calculate" type="submit" name="action" value="Izračunaj"> 
     </center>
   </form>  
-        
+      {%endif%}  
 </br>
 {% if uk_smjese %}
         Sol = {{izracun['preracunata_sol']}} g
