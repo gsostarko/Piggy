@@ -111,10 +111,10 @@
   </table>
     
   
-      
+  {% set uk_masa = uk_tezina_mesa + sol_uk[0] + papar_uk[0] + ljuta_paprika_uk[0] + slatka_paprika_uk[0] + bijeli_luk_uk[0]%}  
    
   
-   <p class="card-text"><strong>Ukupna masa smjese: </strong> {{uk_tezina_mesa + sol_uk[0] + papar_uk[0] + ljuta_paprika_uk[0] + slatka_paprika_uk[0] + bijeli_luk_uk[0]}} g</p> 
+   <p class="card-text"><strong>Ukupna masa smjese: </strong> {{uk_masa|round(1)}} g</p> 
 </br>
 
   <div class="buttons-left">
