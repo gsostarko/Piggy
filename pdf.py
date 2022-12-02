@@ -28,17 +28,17 @@ def pdf_kolinja(id):
         
         cell_data.append(
             [str(itterator),
-            str(q['sol']), 
-            str(q['papar']), 
-            str(q['ljuta_paprika']),
-            str(q['slatka_paprika']),
-            str(q['bijeli_luk']), 
-            str(q['tezina_mesa']),
-            str(q['tezina_mesa']*q['sol']/100),
-            str(q['tezina_mesa']*q['papar']/100),
-            str(q['tezina_mesa']*q['ljuta_paprika']/100),
-            str(q['tezina_mesa']*q['slatka_paprika']/100),
-            str(q['tezina_mesa']*q['bijeli_luk']/100)])
+            str(round(q['sol'],1)), 
+            str(round(q['papar'],1)), 
+            str(round(q['ljuta_paprika'],1)),
+            str(round(q['slatka_paprika'],1)),
+            str(round(q['bijeli_luk'],1)), 
+            str(round(q['tezina_mesa'],1)),
+            str(round(q['tezina_mesa']*q['sol']/100,1)),
+            str(round(q['tezina_mesa']*q['papar']/100,1)),
+            str(round(q['tezina_mesa']*q['ljuta_paprika']/100,1)),
+            str(round(q['tezina_mesa']*q['slatka_paprika']/100,1)),
+            str(round(q['tezina_mesa']*q['bijeli_luk']/100),1)])
         itterator = itterator + 1
     sum_sol = 0
     sum_papar = 0
