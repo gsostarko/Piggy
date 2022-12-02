@@ -38,7 +38,7 @@ def pdf_kolinja(id):
             str(round(q['tezina_mesa']*q['papar']/100,1)),
             str(round(q['tezina_mesa']*q['ljuta_paprika']/100,1)),
             str(round(q['tezina_mesa']*q['slatka_paprika']/100,1)),
-            str(round(q['tezina_mesa']*q['bijeli_luk']/100),1)])
+            str(round(q['tezina_mesa']*q['bijeli_luk']/100,1))])
         itterator = itterator + 1
     sum_sol = 0
     sum_papar = 0
