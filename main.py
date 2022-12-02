@@ -93,6 +93,7 @@ def vaganje(id_kolinja,sol,papar,ljuta_paprika,slatka_paprika,bijeli_luk,tezina_
     _id = ObjectId(id_kolinja)
     vaganje = {
         'id_kolinja': id_kolinja,
+        'id_vaganja': ObjectId(),
         'sol': sol,
         'papar': papar,
         'ljuta_paprika': ljuta_paprika,
